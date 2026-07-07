@@ -35,7 +35,7 @@ Kit v1.0 complete: authored, adversarially reviewed (13 reviewers, 193 findings)
 - Verification — RESULT: broken doc paths none; missing rule IDs none; paired trigger lists byte-identical in all owning files.
 
 ## Open items
-(none)
+- Execute improvement roadmap (docs/improvement-roadmap.md, approved 2026-07-07): Phase A doc quick-wins -> Phase C harness integration -> Phase B enforcement + measurement. First action: field-test assignment (install kit into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines).
 
 ## Failed attempts
 (none)
