@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.0 -->
+<!-- guardrails-kit: v1.0.1 -->
 # Guardrails Kit v1.0
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
@@ -6,6 +6,12 @@ frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer
 fewer wasted tokens. It works by converting the implicit judgment a stronger model applies
 automatically into explicit, checkable, event-triggered procedures a weaker model can execute
 mechanically.
+
+New to the project? Start with [how-it-works.md](how-it-works.md) — a plain-language walkthrough
+of the kit's architecture, design principles, and an honest assessment of what it can and cannot
+transfer. Planned improvements (enforcement hooks, compliance auditing, evals, and new guardrail
+docs for security/performance/frontend/trust/data/tests) live in
+[docs/improvement-roadmap.md](docs/improvement-roadmap.md).
 
 ## What's in the kit
 
@@ -22,14 +28,23 @@ mechanically.
 | `docs/guardrails/_FORMAT.md` | Authoring contracts for editing the kit itself (budgets, trigger phrasing, single-sourcing, sanctioned iron-rule pairs). |
 | `MIGRATE.md` | The transport procedure for retrofitting a project that already has a CLAUDE.md — line-accounted, backup-first, verbatim-carry, user-checkpointed, idempotent, with an UPGRADE mode. |
 
-Not part of the installable kit (kit-source materials only): `docs/research-digest.md`
-(the 155-finding failure-mode research behind every rule), `docs/review-digest.md`
-(the 193-finding adversarial review that hardened it), and `docs/superpowers/specs/`
-(the design record).
+Not part of the installable kit (kit-source and companion materials only): `how-it-works.md`
+(plain-language explanation of the kit), `docs/improvement-roadmap.md` (the approved improvement
+roadmap), `docs/research-digest.md` (the 155-finding failure-mode research behind every rule),
+`docs/review-digest.md` (the 193-finding adversarial review that hardened it), and
+`docs/superpowers/specs/` (the design record).
 
 ## Install — fresh project (no existing CLAUDE.md)
 
-From the project root:
+From the project root — POSIX (Linux/macOS):
+
+```bash
+cp <kit>/CLAUDE.md CLAUDE.md
+mkdir -p docs/guardrails
+cp <kit>/docs/guardrails/*.md docs/guardrails/
+```
+
+or PowerShell (Windows):
 
 ```powershell
 Copy-Item <kit>/CLAUDE.md CLAUDE.md
@@ -94,6 +109,9 @@ files must never be paraphrased. When editing kit content itself, follow
 
 ## Upgrade notes
 
+- v1.0.1 — README only (no rule changes): POSIX install commands added beside PowerShell;
+  pointers to the new companion docs `how-it-works.md` and `docs/improvement-roadmap.md`.
+  Kit core and guardrail docs remain v1.0.
 - v1.0 — initial release: 8 guardrail docs + CLAUDE.md core + MIGRATE.md, hardened by a
   13-reviewer adversarial pass (193 findings applied: observable routing events, single-source
   ownership with byte-identical trigger lists, canonical status vocabulary, cross-platform

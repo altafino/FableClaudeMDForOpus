@@ -1,6 +1,6 @@
 # How the Guardrails Kit Works
 
-I've read the whole kit (it's docs-only, ~2,750 lines across 15 markdown files — no code to run, so I'm skipping the skill-generation part per your instruction and just explaining). Here's what this project is.
+This document explains what the project is and how it works, for readers new to it. It was written by Claude Fable 5 — the model the kit imitates — after reading the entire kit (docs-only, ~2,750 lines across 15 markdown files).
 
 ## TL;DR
 
@@ -39,14 +39,18 @@ The trick that lets it be both extensive and cheap:
 
 ## Provenance and status
 
-Per [STATE.md](docs/STATE.md) and the digests: the kit was built by a Fable 5 session from an 8-lens research pass (155 findings in [research-digest.md](docs/research-digest.md)), then hardened by a 13-reviewer adversarial review (193 findings in [review-digest.md](docs/review-digest.md); all blockers and majors applied). v1.0 is complete and committed; the remaining "Next" items are optional field-testing on a real Opus project and tuning to v1.1. The two digests and the spec are kit-source material, not part of what gets installed. Note the `## Facts` section still names a Windows path (`C:\Users\Laptop\...`) as the kit root — a leftover from where it was authored, not this Linux checkout.
+Per [STATE.md](docs/STATE.md) and the digests: the kit was built by a Fable 5 session from an 8-lens research pass (155 findings in [research-digest.md](docs/research-digest.md)), then hardened by a 13-reviewer adversarial review (193 findings in [review-digest.md](docs/review-digest.md); all blockers and majors applied). v1.0 is complete and committed; the remaining "Next" items are optional field-testing on a real Opus project and tuning to v1.1. The two digests and the spec are kit-source material, not part of what gets installed. Note the `## Facts` section still names a Windows path (`C:\Users\Laptop\...`) as the kit root — a leftover from the machine it was authored on (its refresh is a quick-win item in [docs/improvement-roadmap.md](docs/improvement-roadmap.md)).
 
-One nice detail: **the repo is self-hosting** — its own CLAUDE.md *is* the installed kit, which is why I've been operating under these exact rules in this session.
+One nice detail: **the repo is self-hosting** — its own CLAUDE.md *is* the installed kit, so any Claude Code session opened in this repo operates under the kit's own rules.
 
-## My honest read, as the model it's imitating
+## An honest read, from the model it's imitating
 
-Since you asked whether it gets a model "to be like Fable 5, or nearby" — my assessment:
+Does the kit get a model "to be like Fable 5, or nearby"? Fable 5's own assessment:
 
 **What it captures well.** The failure modes it targets are real and well-chosen: editing from a grep snippet, hallucinated API signatures, missed callers after a rename, "should work now" without running anything, silently weakening a failing test, post-compaction amnesia, rationalizing a contradicting result. Those are exactly the behaviors that separate model tiers, and the mechanisms (transcript artifacts, countable thresholds, phrase-triggered tripwires) are the right enforcement shape for a model that can't be trusted to self-assess. The VERIFY echo protocol and the DEBUG escalation ladder in particular encode things a stronger model does silently.
 
 **What it can't transfer.** Procedure substitutes for judgment only where the judgment is *recognizable as a checklist moment*. The residual gap is upstream of any trigger: choosing the right decomposition, noticing that a requirement is subtly self-contradictory, knowing which of 50 grep hits is the load-bearing one. The kit's own design record admits this ("judgment cannot be transferred through documentation"). It also carries a real cost: a mid-tier model following this faithfully spends meaningful tokens and turns on ceremony (TRIGGER lines, echo protocols, ledgers), and the constant-sum compliance problem it cites applies to itself — under pressure, the rules most likely to be dropped are exactly the ones guarding the moment of pressure. So "nearby Fable on bug-injection and false-completion rates" is a plausible outcome; "nearby Fable on architecture and problem-solving" is not what this can buy. The optional field-test in `## Next` — grep real transcripts for missing markers and tune — is the right way to find out how much it actually closes.
+
+## Where the project is going
+
+The approved improvement roadmap lives in [docs/improvement-roadmap.md](docs/improvement-roadmap.md): phased work from documentation quick-wins, through Claude Code harness integration (post-compaction re-arm hooks, skill-based routing, a self-verifying installer), to an enforcement and measurement layer (deterministic hooks for the iron rules, a transcript compliance auditor, a with/without-kit eval harness) — plus designed-out coverage extensions (security, performance, frontend, untrusted-content trust, data safety, test quality) and kit self-tuning.
