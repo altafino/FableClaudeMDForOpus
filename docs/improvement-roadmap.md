@@ -184,6 +184,8 @@ CLAUDE.md core: **+0 lines** (all routing rides on CODE.md/EFFICIENCY.md items).
 ## Addendum 3 (2026-07-08): Language & framework trap packs — Go, Angular, Vue, Tailwind, SQL, NoSQL (Phase A4)
 
 > **Status 2026-07-08: Phase A IMPLEMENTED as kit v1.1** — all Addendum 1–3 docs authored (SECURITY, PERFORMANCE, FRONTEND, TRUST, DATA, TEST, six TRAPS packs incl. TRAPS-SQL/TRAPS-NOSQL), routing items C16–C21 + C7 pack dispatch + RS6 + V13/V14 + E18/E19 + S8 + F16 landed, MIGRATE doc count 20, PROJECT-TEMPLATE shipped, README v1.1. Phases C and B remain open; B stays gated on the field-test.
+>
+> **Status 2026-07-08 (later): Phase B1–B3 IMPLEMENTED as v1.1.1** — enforcement hooks (`hooks/guard.py` covering the five B1 denies + SEC4 secret-scan with the bypass+log convention, `hooks/track.py` read-state, `hooks/stop_verify.py` done-claim gate) with a 20-case test suite (`hooks/test_hooks.sh`, all green: every deny's trigger case + bypass path), settings snippet, `scripts/allow-push`, and the B3 auditor (`scripts/audit-transcript.py`, exercised against a real 298-event session transcript). Opt-in companion; not enabled on this repo by default. Remaining: B4 eval harness (needs live model runs), live-session hook validation, Phase C.
 
 Third user-requested extension (SQL/NoSQL packs folded in on implementation): six members of the TRAPS split family (Addendum 1 reserved framework mechanics for exactly this slot; A3 already named TRAPS-GO as a gap). Trap packs, not procedure docs: one greppable lookup row per behavior a model guesses wrong, routed on observable evidence, +0 always-on core lines.
 

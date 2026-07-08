@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.1 -->
+<!-- guardrails-kit: v1.1.1 -->
 # Guardrails Kit v1.1
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
@@ -108,6 +108,16 @@ were skipped, search a transcript for: `TRIGGER:`, `GOAL:`, `FILES:`, `EST:`, `D
 `SEC1:`–`SEC8:`, `PERF1:`–`PERF6:`, `FE1:`–`FE7:`, `TR1:`–`TR4:`, `DA1:`–`DA6:`, `TE1:`–`TE5:`.
 Missing markers at the moments their triggers occurred are the non-compliance you should tune for.
 
+## Enforcement companion (optional)
+
+`hooks/` converts the highest-stakes rules from prose into deterministic Claude Code hooks:
+no Edit of an un-Read file, no Write over an existing file, no generated-path edits, no
+kill-by-image-name, `git push` only after the user runs `scripts/allow-push`, secret-scan on
+`git commit`, and a Stop-hook that blocks ending a turn on an unverified done-claim. Every
+deny names its rule and its escape (`GUARDRAILS_BYPASS=1`, logged). `scripts/audit-transcript.py`
+scores any session transcript against the kit's markers. Opt-in: see `hooks/README.md`;
+test suite: `hooks/test_hooks.sh`. POSIX-first; not enabled on this repo by default.
+
 ## Upgrading the kit
 
 Kit text in an installed project lives inside `<!-- BEGIN/END KIT CORE -->` and
@@ -119,6 +129,10 @@ files must never be paraphrased. When editing kit content itself, follow
 
 ## Upgrade notes
 
+- v1.1.1 — enforcement companion (roadmap Phase B1–B3, no kit-doc rule changes): `hooks/`
+  (guard.py, track.py, stop_verify.py + settings snippet, README, 20-case test suite),
+  `scripts/allow-push`, `scripts/audit-transcript.py` compliance auditor. Opt-in; kit docs
+  remain v1.1.
 - v1.1 — coverage extensions per docs/improvement-roadmap.md Addenda 1–3 (Phase A): 12 new
   routed guardrail docs — SECURITY (SEC1–8), PERFORMANCE (PERF1–6), FRONTEND (FE1–7),
   TRUST (TR1–4), DATA (DA1–6), TEST (TE1–5), and six trap packs (TRAPS-GO/-ANGULAR/-VUE/
