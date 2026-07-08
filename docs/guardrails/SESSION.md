@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.0 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
+<!-- guardrails-kit: v1.1 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
 You are here because you returned from compaction or /resume, the user paused the work ("stop", "later", "tomorrow"), or a task with a TASK block has no docs/STATE.md.
 
 - S1. Returned from compaction or /resume? Do this FIRST, before any file-modifying tool call:
@@ -43,6 +43,7 @@ You are here because you returned from compaction or /resume, the user paused th
 - S5. The moment you start ANY work not in the original request or approved plan, write: `DETOUR(depth n): <sub-problem> — RETURN-TO: <the step you left>` and mirror it in `## Now`; write `RETURNING: <step>` when it resolves. Max depth 2: a depth-2 detour needing another detour -> STOP and present the chain to the user.
 - S6. When a design decision is settled, append `DECISION: <what> — <why>` to `## Decisions` in the same turn. Before introducing any new dependency, pattern, or naming scheme: scan `## Decisions` and either conform or write `REVERSING DECISION '<text>' because <new evidence>` and get user confirmation. Silent deviation is forbidden.
 - S7. `CONSTRAINT CHECK:` — before the first edit of each file; exact format and procedure owned by docs/guardrails/CODE.md C4.
+- S8. 2+ compactions inside one task AND `## Failed attempts` at L4 or higher? Propose a restart in <=3 lines: bring docs/STATE.md current, name what a fresh session reuses (STATE.md + committed work), then STOP for the user's call (grinding a degraded context costs more than restarting).
 
 --- reference ---
 

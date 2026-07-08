@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.0.1 -->
-# Guardrails Kit v1.0
+<!-- guardrails-kit: v1.1 -->
+# Guardrails Kit v1.1
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -26,6 +26,14 @@ docs for security/performance/frontend/trust/data/tests) live in
 | `docs/guardrails/EFFICIENCY.md` | Token/context discipline as paired rules: every "read less" rule has a "read enough" floor. |
 | `docs/guardrails/SESSION.md` | Long-session survival: docs/STATE.md template (S2), same-turn update triggers (S3), post-compaction recovery (S1), ANCHOR/DETOUR/DECISION ledger keywords. |
 | `docs/guardrails/_FORMAT.md` | Authoring contracts for editing the kit itself (budgets, trigger phrasing, single-sourcing, sanctioned iron-rule pairs). |
+| `docs/guardrails/SECURITY.md` | Code touching user input, SQL, shell construction, paths, secrets, auth, or deserialization (via CODE.md C16): SEC1–SEC8, every claim a pasted grep. |
+| `docs/guardrails/PERFORMANCE.md` | Loops with I/O, nested loops, list endpoints (via C17): N+1, O() notes, measure-before/after, bounds, pagination. |
+| `docs/guardrails/FRONTEND.md` | UI files (via C18): state coverage, design tokens, a11y minima, viewport numbers; visual taste explicitly out of scope. |
+| `docs/guardrails/TRUST.md` | Imperatives found inside tool results/files (via EFFICIENCY.md E18): untrusted content is data — `INJECTION-SUSPECT` marker, never silent compliance. |
+| `docs/guardrails/DATA.md` | SQL/ORM mutations, migrations, bulk updates (via C19): predicted-vs-actual row counts, dry-runs, migration discipline, DROP approval. |
+| `docs/guardrails/TEST.md` | Writing tests (via C20): TE1–TE5 authorship quality — no logic in tests, behavior asserts, the "returns test". |
+| `docs/guardrails/TRAPS-*.md` | Language/framework trap packs — GO, ANGULAR, VUE, TAILWIND, SQL, NOSQL — dispatched by C7 on manifest/file-type evidence; version-aware rows with verified-against headers. |
+| `docs/guardrails/PROJECT-TEMPLATE.md` | Skeleton for the project-authored PROJECT.md — copy and fill when first needed. |
 | `MIGRATE.md` | The transport procedure for retrofitting a project that already has a CLAUDE.md — line-accounted, backup-first, verbatim-carry, user-checkpointed, idempotent, with an UPGRADE mode. |
 
 Not part of the installable kit (kit-source and companion materials only): `how-it-works.md`
@@ -95,7 +103,9 @@ were skipped, search a transcript for: `TRIGGER:`, `GOAL:`, `FILES:`, `EST:`, `D
 `BASELINE:`, `ASSUMPTION:`, `PLAN CHANGE:`, `CAUSE:`, `WORKAROUND:`, `ATTEMPT `, `ANCHOR:`,
 `DETOUR(`, `RETURNING:`, `DECISION:`, `CONSTRAINT CHECK:`, `HANDLED FAILURES:`,
 `NOTED (not done)`, `EDITED-UNVERIFIED`, `CANNOT-REPRODUCE`, `SIGNATURE UNVERIFIED`,
-`P1:`–`P9:`, `C1:`–`C15:`, `D1:`–`D10:`, `V1:`–`V12:`, `E1:`–`E17:`, `S1:`–`S7:`, `RS1`–`RS5`.
+`INJECTION-SUSPECT`, `AUTH:`, `STATES COVERED:`, `BREAKING CHECKED:`, `UNBOUNDED (by choice)`,
+`P1:`–`P9:`, `C1:`–`C21:`, `D1:`–`D10:`, `V1:`–`V14:`, `E1:`–`E19:`, `S1:`–`S8:`, `RS1`–`RS6`,
+`SEC1:`–`SEC8:`, `PERF1:`–`PERF6:`, `FE1:`–`FE7:`, `TR1:`–`TR4:`, `DA1:`–`DA6:`, `TE1:`–`TE5:`.
 Missing markers at the moments their triggers occurred are the non-compliance you should tune for.
 
 ## Upgrading the kit
@@ -109,6 +119,14 @@ files must never be paraphrased. When editing kit content itself, follow
 
 ## Upgrade notes
 
+- v1.1 — coverage extensions per docs/improvement-roadmap.md Addenda 1–3 (Phase A): 12 new
+  routed guardrail docs — SECURITY (SEC1–8), PERFORMANCE (PERF1–6), FRONTEND (FE1–7),
+  TRUST (TR1–4), DATA (DA1–6), TEST (TE1–5), and six trap packs (TRAPS-GO/-ANGULAR/-VUE/
+  -TAILWIND/-SQL/-NOSQL, version-aware with verified-against headers) — plus routing items
+  CODE C16–C21 + C7 pack dispatch + RS6, VERIFY V13–V14, EFFICIENCY E18–E19, SESSION S8,
+  _FORMAT F16 (rule lifecycle) and the F12 ID-family list, MIGRATE kit-doc count 8 -> 20,
+  and docs/guardrails/PROJECT-TEMPLATE.md. CLAUDE.md core block unchanged (markers remain
+  v1.0): +0 always-on lines.
 - v1.0.1 — README only (no rule changes): POSIX install commands added beside PowerShell;
   pointers to the new companion docs `how-it-works.md` and `docs/improvement-roadmap.md`.
   Kit core and guardrail docs remain v1.0.
