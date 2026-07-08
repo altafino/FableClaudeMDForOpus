@@ -4,7 +4,7 @@
 Build a portable CLAUDE.md + docs kit that makes Opus/Sonnet perform near Fable level (fewer logic errors/bugs, fewer tokens), plus MIGRATE.md to retrofit existing projects.
 
 ## Now
-Kit v1.0 complete: authored, adversarially reviewed (13 reviewers, 193 findings), all blocker/major fixes applied, budgets verified, committed.
+Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new routed guardrail docs, routing items C16-C21/RS6/V13-V14/E18-E19/S8/F16, MIGRATE count 20, PROJECT-TEMPLATE). CLAUDE.md core unchanged. Phases B/C (hooks, auditor, evals, installer) not started.
 
 ## Next
 1. (optional) Field-test: install the kit into a real Opus project and observe TRIGGER:/V-line compliance in transcripts.
@@ -22,9 +22,9 @@ Kit v1.0 complete: authored, adversarially reviewed (13 reviewers, 193 findings)
 - MIGRATE.md: transport-not-authorship, per-file copies, CONFLICT-PENDING disposition, UPGRADE mode U0-U4.
 
 ## Facts
-- Kit root: C:\Users\Laptop\Documents\Fable optimization (git repo, branch main)
-- Kit files (installable): CLAUDE.md, MIGRATE.md, docs/guardrails/{_FORMAT,PLAN,CODE,TRAPS,DEBUG,VERIFY,EFFICIENCY,SESSION}.md (8 docs)
-- Budgets verified: 35 kit lines / 12 iron rules / 4 CAPS / 7 routing rows; docs ~830-1210 words each
+- Kit root: this repo (github.com/altafino/FableClaudeMDForOpus; branches dev -> main)
+- Kit files (installable): CLAUDE.md, MIGRATE.md, 20 docs under docs/guardrails/ (8 v1.0 + 12 v1.1 per MIGRATE.md definitions) + PROJECT-TEMPLATE.md convenience copy
+- Budgets: CLAUDE.md core unchanged from v1.0 (12 iron rules / 4 CAPS / 7 routing rows); v1.1 docs each within F11 caps
 - Research: docs/research-digest.md (155 findings); review: docs/review-digest.md (193 findings)
 - Workflows: research wf_f57b6575, review wf_aeae1114
 
@@ -35,7 +35,10 @@ Kit v1.0 complete: authored, adversarially reviewed (13 reviewers, 193 findings)
 - Verification — RESULT: broken doc paths none; missing rule IDs none; paired trigger lists byte-identical in all owning files.
 
 ## Open items
-- Execute improvement roadmap (docs/improvement-roadmap.md, approved 2026-07-07): Phase A doc quick-wins -> Phase C harness integration -> Phase B enforcement + measurement. First action: field-test assignment (install kit into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines).
+- Improvement roadmap Phase C (re-arm hook, skill-ification, installer, kit doctor) and Phase B (enforcement hooks, transcript auditor, eval harness) — B gated on the field-test per the approved roadmap.
+- Field-test assignment: install kit v1.1 into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines, record fired vs missed per rule ID.
+- Roadmap Open Questions 6-7 (fifth CAPS slot for DA4; TRUST hook hardening) — decide before/with Phase B.
+- CODE.md at 1255 words (F11 soft cap ~1100; VERIFY at 1112) after the v1.1 routing items — decide with field-test data whether to split CODE.md by trigger (F11 remedy) or accept.
 
 ## Failed attempts
 (none)

@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.0 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
+<!-- guardrails-kit: v1.1 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
 You are here because you are about to write "done", "fixed", "works", "passing", "complete", "resolved", or "ready", or to run git commit / gh pr create.
 
 Echo protocol: walk this checklist by writing one line per item — `V<n>: PASS — <command> -> <last output line>` | `V<n>: FAIL — <command> -> <failing line>` | `V<n>: N/A — <one-line reason naming the absent precondition>`. A PASS without a quoted output line counts as FAIL; an N/A without a reason counts as FAIL. Every quoted output line must appear verbatim in a tool result earlier in THIS turn — quote it, never retype it; a quoted line with no matching tool result above it is fabrication: the item is FAIL and you run the command now. Do not write "done", "fixed", or "works", or run git commit, while any line reads FAIL.
@@ -15,6 +15,8 @@ Echo protocol: walk this checklist by writing one line per item — `V<n>: PASS 
 - V10. You changed a test expectation or ran snapshot-update (-u) during this task? Paste the old-vs-new quote and justification required by docs/guardrails/DEBUG.md ("A previously-passing test fails after your edit"); absent from the transcript = FAIL.
 - V11. Service/endpoint change: completion evidence is a pasted request + response (curl / Invoke-WebRequest with status code and relevant body) exercising the changed route, including one case the change was supposed to alter. "Listening on :3000" is never evidence.
 - V12. Triviality waives nothing — one-liners have the highest surprise rate per line. Sole exemption: changes touching only comments/docs, stated as "comment/doc-only change; behavior verification not applicable". Whitespace edits in indentation-significant files (.py, .yaml) are NOT exempt: paste `python -m py_compile <file>` (or a YAML parse) output.
+- V13. The diff fired any docs/guardrails/SECURITY.md item? The SEC4 staged-diff grep output is quoted in this turn; absent = FAIL.
+- V14. The diff touches a UI file (.tsx/.jsx/.vue/.svelte, templates, .css/.scss, styled components)? Completion evidence is a rendered screenshot or a DOM/e2e assertion produced AFTER the last edit — build or dev-server output alone is never UI evidence.
 
 --- reference ---
 

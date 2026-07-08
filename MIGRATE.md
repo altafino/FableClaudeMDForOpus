@@ -1,11 +1,11 @@
-<!-- guardrails-kit: v1.0 | This file is executed as a procedure. Do not improvise, reorder, or batch PHASES; batching independent tool calls inside one numbered step is fine. -->
+<!-- guardrails-kit: v1.1 | This file is executed as a procedure. Do not improvise, reorder, or batch PHASES; batching independent tool calls inside one numbered step is fine. -->
 # MIGRATE.md — install the guardrails kit into an existing project
 
 GOVERNING PRINCIPLE — MIGRATION IS TRANSPORT, NOT AUTHORSHIP.
 Every byte you output is either copied from the kit or copied from the original project files. The only text you compose fresh is the log, the report, and one-line pointers. If you catch yourself rewording, shortening, or "cleaning up" any rule text, you are making the exact error this procedure exists to prevent: paraphrase is where rules die — exact flags, ports, thresholds, and never/always qualifiers are precisely what regeneration discards.
 
 Definitions used below:
-- `<KIT>` = the directory containing this MIGRATE.md (it also contains the template CLAUDE.md and docs/guardrails/). Kit docs: _FORMAT, PLAN, CODE, DEBUG, VERIFY, EFFICIENCY, SESSION, TRAPS (8 files).
+- `<KIT>` = the directory containing this MIGRATE.md (it also contains the template CLAUDE.md and docs/guardrails/). Kit docs: _FORMAT, PLAN, CODE, DEBUG, VERIFY, EFFICIENCY, SESSION, TRAPS, SECURITY, PERFORMANCE, FRONTEND, TRUST, DATA, TEST, TRAPS-GO, TRAPS-ANGULAR, TRAPS-VUE, TRAPS-TAILWIND, TRAPS-SQL, TRAPS-NOSQL (20 files; PROJECT-TEMPLATE.md is a convenience copy, not a kit doc).
 - `<PROJECT>` = the repo being migrated. All steps run from `<PROJECT>` root.
 - Every `Verify:` line must be RUN and its output PRINTED in the transcript. "Ensure" means nothing; print means everything. An unprinted verify counts as FAILED.
 - Commands are given as `POSIX | PowerShell` — use exactly one dialect per command.
@@ -61,7 +61,7 @@ M5. Post in chat, then WAIT for explicit approval before Phase 6 — no kit-doc 
     User does not explicitly approve the DROPPED list? Reroute those lines to UNSORTED. Do not proceed past this line without a user reply.
 
 ## Phase 6 — install and compose
-M6a. Install kit docs by FILE COPY, never by Write-ing their content (regeneration silently mutates calibrated wording). For EACH of the 8 kit docs, in order:
+M6a. Install kit docs by FILE COPY, never by Write-ing their content (regeneration silently mutates calibrated wording). For EACH of the 20 kit docs, in order:
      (1) Precheck: `[ -e docs/guardrails/<X>.md ] && echo EXISTS || echo none` | `Test-Path docs/guardrails/<X>.md`. Exists? Hash-compare with the kit source (`git hash-object --no-filters` both paths | `Get-FileHash` both): equal -> log "already installed" under `## Kit-doc collisions`, skip; different -> do NOT overwrite; quote the first 10 lines of the existing file and ask the user: (a) rename existing to `<X>.pre-kit.md`, then grep the repo for `docs/guardrails/<X>.md` and list every reference for the user to re-point, then install; (b) skip this kit doc; (c) back up as `<X>.md.pre-migration-<stamp>` (M2 convention) then replace. Never resolve a collision yourself.
      (2) Copy one file at a time — never a wildcard copy when any destination exists: `mkdir -p docs/guardrails && cp "<KIT>/docs/guardrails/<X>.md" docs/guardrails/` | `New-Item -ItemType Directory -Force docs/guardrails | Out-Null; Copy-Item "<KIT>/docs/guardrails/<X>.md" docs/guardrails/`
      (3) Log the outcome under `## Kit-doc collisions`: `<X>.md: installed | skipped (user, <date>) | replaced (backup: <name>)`.

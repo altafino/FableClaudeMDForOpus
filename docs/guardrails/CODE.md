@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.0 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
+<!-- guardrails-kit: v1.1 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
 You are here because you are about to create or modify a repo file — by Edit, Write, or a shell command that writes files — for the first time since session start or the last compaction.
 
 Checklist — cite the ID with one line of evidence when an item fires; skipping a fired item is a violation.
@@ -13,6 +13,13 @@ While editing:
 - C5. Unfamiliar or third-party API with 2+ arguments: paste its real signature (from installed sources/type stubs, `python -c "import inspect,M; print(inspect.signature(M.fn))"`, node_modules/**/*.d.ts, or official docs) before writing the call. Cannot produce it? -> instead: write `SIGNATURE UNVERIFIED: <fn>` and either pick an API whose signature you can paste, or stop and ask the user for the docs. (Compressed as CLAUDE.md iron rule 4.)
 - C6. First use of each third-party library this session: read its pinned version from the manifest/lockfile and state `Using <lib> v<N> — writing v<N> idioms.`
 - C7. Touching any category of docs/guardrails/TRAPS.md — Dates & times, Epochs & units, Mutation vs copy, Async, Floats & money, Sort, Division & modulo, Regex & strings, Familiar-API traps, Closures in loops, Boolean logic? Read docs/guardrails/TRAPS.md and follow your rows — never guess load-bearing behavior.
+      C7 pack dispatch (same rule, keyed on evidence): go.mod present + editing .go -> also Read docs/guardrails/TRAPS-GO.md; angular.json present -> docs/guardrails/TRAPS-ANGULAR.md; editing a .vue file -> docs/guardrails/TRAPS-VUE.md; tailwindcss in the manifest or `@theme` in CSS -> docs/guardrails/TRAPS-TAILWIND.md; writing SQL/query-builder/ORM query code -> docs/guardrails/TRAPS-SQL.md; MongoDB/Redis/DynamoDB code -> docs/guardrails/TRAPS-NOSQL.md.
+- C16. The code touches user input, SQL, shell/command construction, file paths from external input, secrets/env vars, auth/session logic, or deserialization? Read docs/guardrails/SECURITY.md and cite your SEC rows.
+- C17. Writing a loop containing an I/O/DB/network call, a nested loop over collections that can grow, or a list query/endpoint? Read docs/guardrails/PERFORMANCE.md.
+- C18. Editing or creating a UI file (.tsx/.jsx/.vue/.svelte, templates, .css/.scss, styled components)? Read docs/guardrails/FRONTEND.md.
+- C19. Writing SQL/ORM mutations, a migration, or a bulk-update script? Read docs/guardrails/DATA.md.
+- C20. Creating or modifying a test file? Read docs/guardrails/TEST.md.
+- C21. Major-version bump of any dependency: read its changelog/migration guide and paste `BREAKING CHECKED: <item> -> <grep/hit in this repo>` (extends C6).
 - C8. Duplicated-then-adapted block: list every token that had to change; Grep the file with -n for each OLD token; confirm in one line per token that every hit's line number lies OUTSIDE the new block's range. Symmetric term appears 3+ times per line? Extract a helper instead of pasting.
 - C9. Edit with replace_all=true: first Grep the old_string in that file and paste every occurrence; confirm each should change. Never replace_all a string that is not a complete identifier or that can occur inside another word -> instead: one Edit per occurrence with enough surrounding context to be unique.
 - C10. New project-local import (relative path or repo package): confirm the target exists — Glob the module path or Grep the export (`def <sym>|class <sym>|export .*<sym>`) — and paste the hit. Third-party imports: covered by C6.
@@ -30,6 +37,7 @@ After each edit:
 - RS3. More than 50 hits? Re-run with a word-boundary pattern (`\b<name>\b`) excluding vendored paths (node_modules/, dist/, vendor/); still >50 -> delegate the sweep per docs/guardrails/EFFICIENCY.md E8/E9 and disposition the returned list yourself.
 - RS4. Disposition every hit in one line each: `updated` or `unaffected — <reason>`. Renames: additionally Grep the name as a string literal (logs, reflection, dynamic dispatch).
 - RS5. Enum/union changes: additionally Grep switch/match/if-chains over that type; update every branch set. Do not proceed to the next task step until every hit is dispositioned.
+- RS6. Behavior/config/CLI change: additionally Grep README* and docs/ for the old behavior's tokens; disposition hits like RS4 (stale docs are silent lies).
 
 --- reference ---
 

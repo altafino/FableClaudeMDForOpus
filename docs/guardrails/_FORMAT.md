@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.0 -->
+<!-- guardrails-kit: v1.1 -->
 You are here because you are about to edit CLAUDE.md or any docs/guardrails file. These contracts govern the kit's FORM; violating them silently degrades every other rule.
 
 - F1. Every rule is one line, <=20 words where possible, opening with an imperative verb or a trigger clause (`When/Before/After <observable event>:`). No paragraphs. No hedges (usually / consider / try / generally). A checklist line over ~30 words splits into sub-lines under the same ID.
@@ -12,10 +12,11 @@ You are here because you are about to edit CLAUDE.md or any docs/guardrails file
 - F9. Every rule names a greppable literal token — an exact command, path, or number (`git diff --stat HEAD`, `docs/STATE.md`, `>50 hits`). A rule with no literal token gets rewritten until it has one, or leaves the kit.
 - F10. Kit verbs are tool names: Read, Grep, Glob, Edit, Write, run (Bash). Never "see / consult / check / refer to" when a tool call is meant. Every doc reference is the full literal path `docs/guardrails/<NAME>.md`, optionally + rule ID.
 - F11. Guardrail doc shape: the first non-comment line restates the doc's routing-table trigger VERBATIM; the ID'd checklist fills the top; named procedures invoked by ID from a checklist or CLAUDE.md (e.g. REFERENCE SWEEP, ESCALATION LADDER) may sit between the checklist and the `--- reference ---` divider; reference-section headers are second-person situations ("Your fix didn't change the error"), never topic nouns. Caps: ~120 lines AND ~1,100 words; a doc that must grow past either splits by trigger.
-- F12. Checklist IDs (P1.., C1.., D1.., V1.., E1.., S1.., F1.., M1.., RS1.., T-rows) are stable forever — never renumber, never reuse a retired ID. Grouping by theme may make numbering non-sequential; that is intentional. Compliance is cited by ID + one line of evidence.
+- F12. Checklist IDs (P1.., C1.., D1.., V1.., E1.., S1.., F1.., M1.., RS1.., SEC1.., PERF1.., FE1.., TR1.., DA1.., TE1.., T-rows) are stable forever — never renumber, never reuse a retired ID. Grouping by theme may make numbering non-sequential; that is intentional. Compliance is cited by ID + one line of evidence.
 - F13. Examples: at most one GOOD/BAD pair per core rule, below the divider. GOOD = 5-10 line mini-transcript of the correct tool sequence. BAD <=3 lines, always prefixed `BAD (never do this):`. No unlabeled example code anywhere.
 - F14. Numbers, not judgment words: "10 messages" not "recently", "2 failures" not "repeatedly", ">200 lines" not "long output". The exact value matters less than its existence.
 - F15. Kit files are edited only deliberately and verbatim-carefully: never regenerate a kit file from memory, never "clean up" wording in passing, never reflow. Any kit edit bumps the version comment on the file's first line and adds an entry under README.md `## Upgrade notes`. Exemption: docs/guardrails/PROJECT.md, PROJECT-NOTES.md, and MIGRATION-LOG.md are project-authored archives — never reformat their transported content to these contracts.
+- F16. Rule lifecycle: a rule whose trigger event occurred in 10+ audited sessions with zero fires gets its trigger re-phrased or the rule demoted; a rule that fires but never changes behavior is demotion-eligible. Retired IDs are never reused (F12); every demotion/retirement is a kit edit under F15.
 
 --- reference ---
 
