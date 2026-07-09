@@ -13,21 +13,25 @@ transfer. Planned improvements (enforcement hooks, compliance auditing, evals, a
 docs for security/performance/frontend/trust/data/tests) live in
 [docs/improvement-roadmap.md](docs/improvement-roadmap.md).
 
-**First results (PILOT test #20260709-022340, N=1 per condition — directional, below the N≥5
-bar of evals/METRICS.md):** in 10 live Opus 4.8 sessions (5 tasks × with/without kit), the kit's
-routing engaged unprompted in 4/5 with-kit sessions, and completion claims without verification
-evidence dropped from 3/3 (without kit) to 3/8 (with kit). The discipline's measured cost:
-+61% per task (mean $0.66 vs $0.41; 11.6 vs 6.8 turns) — all 10 sessions solved their task.
+**Measured results (Opus 4.8, 40 live sessions):** pilot #20260709-022340 (5 easy tasks, N=1)
+plus run #20260709-041605 (3 harder trap tasks — misleading symptom, dynamic-dispatch rename,
+test-weakening temptation — **N=5 per condition**, 30 sessions). Task pass rate was 100% in BOTH
+conditions across all 40 sessions: Opus 4.8 solves tasks of this size with or without the kit,
+so on this tier the kit's measured effect is **verifiability and process**, not raw correctness.
+With the kit: routing engaged unprompted in 16/20 sessions; auditor marker-fire rate 71–80%
+(hard tasks, N=5) vs 0% without; completion claims lacking verification evidence dropped from
+**14/14 (without kit) to 13/29 (with kit)**. Discipline cost on hard tasks: +67% per task
+(mean $0.75 vs $0.45; spread $0.47–0.99 vs $0.40–0.61; 14.2 vs 8.8 turns).
 
-**Is the surcharge worth it?** The measured overhead is ~$0.25 per task. What it buys, per task:
+**Is the surcharge worth it?** The measured overhead is ~$0.30 per hard task. What it buys:
 without the kit, 100% of completions arrived without evidence, so a human must re-verify each one
 (~3 min ≈ $3.00 at $60/h); with the kit the transcript carries `Verified: <command> -> <result>`
-and human checking drops to skimming one line (~$0.75 incl. the surcharge) — roughly a 9:1 return
-on labor alone. On top of that, one escaped false-"done" costs a debugging round-trip (~30 min);
-at $0.25/task the kit breaks even if it prevents just one such escape per 120 tasks (0.8%).
-Assumptions are knobs — recompute with your own rate: value ≈ (verify-minutes-saved × your $/min)
-+ (escape-rate × cost-per-escape) − $0.25. Pilot-derived, N=1: treat as directional until the
-N≥5 runs land.
+and human checking drops to skimming one line — roughly an 8:1 return on labor alone. On top of
+that, one escaped false-"done" costs a debugging round-trip (~30 min); at $0.30/task the kit
+breaks even if it prevents one such escape per 100 tasks (1%). Assumptions are knobs — recompute
+with your own rate: value ≈ (verify-minutes-saved × your $/min) + (escape-rate × cost-per-escape)
+− $0.30. Open gap: a task set where without-kit Opus actually *fails* (correctness delta) is
+still unmeasured; weaker tiers (Sonnet/Haiku) not yet run.
 
 ## What's in the kit
 
