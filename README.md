@@ -19,6 +19,16 @@ routing engaged unprompted in 4/5 with-kit sessions, and completion claims witho
 evidence dropped from 3/3 (without kit) to 3/8 (with kit). The discipline's measured cost:
 +61% per task (mean $0.66 vs $0.41; 11.6 vs 6.8 turns) — all 10 sessions solved their task.
 
+**Is the surcharge worth it?** The measured overhead is ~$0.25 per task. What it buys, per task:
+without the kit, 100% of completions arrived without evidence, so a human must re-verify each one
+(~3 min ≈ $3.00 at $60/h); with the kit the transcript carries `Verified: <command> -> <result>`
+and human checking drops to skimming one line (~$0.75 incl. the surcharge) — roughly a 9:1 return
+on labor alone. On top of that, one escaped false-"done" costs a debugging round-trip (~30 min);
+at $0.25/task the kit breaks even if it prevents just one such escape per 120 tasks (0.8%).
+Assumptions are knobs — recompute with your own rate: value ≈ (verify-minutes-saved × your $/min)
++ (escape-rate × cost-per-escape) − $0.25. Pilot-derived, N=1: treat as directional until the
+N≥5 runs land.
+
 ## What's in the kit
 
 | File | Role |
@@ -142,6 +152,15 @@ Upgrades are wholesale block/file swaps — see UPGRADE mode (U0–U4) at the bo
 which is exactly why project content must never be interleaved into kit blocks, and why kit
 files must never be paraphrased. When editing kit content itself, follow
 `docs/guardrails/_FORMAT.md`.
+
+## Origins & thanks
+
+This project began as a fork of
+[TheColliny/FableClaudeMDForOpus](https://github.com/TheColliny/FableClaudeMDForOpus) — thanks to
+TheColliny for the original Guardrails Kit v1.0: the research, the core concept, and the initial
+rule set. As the original appears to be a one-time release while this fork has grown well beyond
+it (coverage docs, enforcement hooks, evals, slash skills — v1.1+), it continues here as an
+independent project.
 
 ## Upgrade notes
 
