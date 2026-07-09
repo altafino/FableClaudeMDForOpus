@@ -207,6 +207,46 @@ Third user-requested extension (SQL/NoSQL packs folded in on implementation): si
 
 **Budget (Addendum 3)**: CLAUDE.md core +0; CODE.md +0 new items (C7's split-dispatch wording from A3 gains four detection rows); four new docs, each ≤120 lines / ≤1,100 words (F11), read only on their manifest/file-type triggers.
 
+## Addendum 4 (2026-07-09): Slash-skill layer — workflow commands + topic-scoped packs (extends Phase C2)
+
+User-approved extension of Phase C2's skill-ification. One skill artifact gives three trigger channels: the routing table (model-side, primary), the skill `description:` (harness auto-load, backup), and the `name:` as a typeable `/command` (user-side override). Design rules: every `SKILL.md` body is a pointer bundle per F7 — ~5 lines naming which kit docs/rule IDs to Read and apply, never restated rule text; all names carry the `kit-` prefix (skills land in `.claude/skills/` beside a user's existing commands — unprefixed `/verify`/`/review` collide in real setups).
+
+### Workflow commands (user-forced entry points)
+
+| Command | Does | Why user-side |
+|---|---|---|
+| `/kit-verify` | walk VERIFY.md V1–V14 against the current task's claims | the user notices a skipped VERIFY more reliably than the model |
+| `/kit-audit` | run `scripts/audit-transcript.py --latest`, summarize the scorecard | one-keystroke field-test loop |
+| `/kit-state` | create/refresh docs/STATE.md per SESSION.md S2 | "I'm pausing now" is a human-known event |
+| `/kit-migrate` | execute MIGRATE.md phase by phase | a command beats the README's "tell the model to…" sentence |
+| `/kit-doctor`, `/kit-rearm` | health check; manual post-compaction re-arm | ship with Phase C artifacts |
+| `/kit-plan`, `/kit-debug` | force PLAN.md / DEBUG.md | fallback when the user sees a missed trigger ("you're flailing — /kit-debug") |
+
+### Topic-scoped packs (the user-requested core)
+
+A topic skill is a **cross-doc topic index**: the kit is single-sourced by *rule kind* (traps vs. procedure vs. verification), but a human thinks in *topics* — `/kit-sql` should surface everything SQL-relevant regardless of which doc owns it. Each pack's body lists its pointer set; its `description:` carries the topic verbs/nouns so the same file also auto-loads (C2 channel):
+
+| Command | Pointer bundle |
+|---|---|
+| `/kit-sql` | TRAPS-SQL.md rows + DATA.md DA1–DA5 + SECURITY.md SEC1 + PERFORMANCE.md PERF1/PERF5 |
+| `/kit-nosql` | TRAPS-NOSQL.md + DATA.md DA6 + PERFORMANCE.md PERF4 |
+| `/kit-go` | TRAPS-GO.md + TRAPS.md shared rows (JSON/int64) |
+| `/kit-angular`, `/kit-vue` | their trap pack + FRONTEND.md FE1–FE7 + VERIFY.md V14 |
+| `/kit-tailwind` | TRAPS-TAILWIND.md + FRONTEND.md FE2 |
+| `/kit-security` | SECURITY.md SEC1–SEC8 + TRUST.md TR1–TR4 + VERIFY.md V13 |
+| `/kit-performance` | PERFORMANCE.md + the PERF-adjacent trap rows |
+| `/kit-testing` | TEST.md TE1–TE5 + DEBUG.md regression-proof section + VERIFY.md V2/V10 |
+
+Maintenance rule: a pack lists doc paths + rule IDs only, so kit upgrades never touch skills unless a rule ID is added/retired (then F16 lifecycle covers it). Packs are generated-able from a small manifest later; hand-written is fine at this count.
+
+### Scope honesty
+
+Slash commands shift burden to the human; the kit exists to remove that burden. This layer is override + topic-lens, never the primary path — if the field test shows routing misses, `/kit-*` is the interim mitigation while triggers get re-phrased (F16), not the fix.
+
+### Budget / distribution
+
+CLAUDE.md core +0. Skills ship as `.claude/skills/kit-*/SKILL.md` in the kit repo; install copies the directory (README + MIGRATE gain one line each when implemented). ~14 files, each ≤10 lines.
+
 ## Open Questions
 
 1. Companion packaging: same repo (`hooks/` + README section) or a sibling repo? Same-repo is simpler; sibling keeps the kit's "docs-only" identity strictly clean.
@@ -239,6 +279,7 @@ Unchanged for the kit itself: git repo copy per README (now cross-platform). Com
 5. **Phase B, step 2**: define the eval task set + metrics doc; run the without-kit baseline; run with-kit; publish numbers in README.
 6. **Phase B, step 3 (Addendum 2)**: extend the auditor with per-rule fire aggregation across sessions; adopt the F16 rule-lifecycle procedure (re-phrase zero-fire triggers, demote no-effect rules, reclaim budget).
 7. **Phase B/C follow-ons (Addendum 2)**: per-model threshold overlays informed by the eval numbers; `kit doctor` health command joining the Phase C installer.
+8. **Phase C2+ (Addendum 4)**: author the `.claude/skills/kit-*/` slash-skill layer — 6 workflow commands + 8 topic-scoped packs as F7 pointer bundles with auto-load descriptions; add the install/MIGRATE lines.
 
 ## The Assignment
 
