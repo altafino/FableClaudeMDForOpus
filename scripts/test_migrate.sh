@@ -73,6 +73,39 @@ check "auto dry-run exits 0" 0 $EC
 echo "$OUT" | grep -q "stopping before the Claude session"; check "auto dry-run stops pre-launch" 0 $?
 cd /; rm -rf "$D"
 
+echo "== rollback: refuses without a prep log =="
+D=$(mklegacy); cd "$D"
+( bash "$M" "$HERE" rollback --yes >/dev/null 2>&1 ); check "rollback without log refuses (exit 1)" 1 $?
+cd /; rm -rf "$D"
+
+echo "== rollback after prep only: cleanup, CLAUDE.md untouched =="
+D=$(mklegacy); cd "$D"
+ORIG=$(sha256sum CLAUDE.md | awk '{print $1}')
+bash "$M" "$HERE" prep >/dev/null 2>&1
+bash "$M" "$HERE" rollback --yes --purge >/dev/null 2>&1; check "rollback exits 0" 0 $?
+check "CLAUDE.md untouched" "$ORIG" "$(sha256sum CLAUDE.md | awk '{print $1}')"
+[ ! -e docs/guardrails/MIGRATION-PREP.log ]; check "prep log removed" 0 $?
+[ -z "$(ls CLAUDE.md.pre-migration-* 2>/dev/null)" ]; check "snapshot purged (--purge)" 0 $?
+[ ! -d docs/guardrails ]; check "created docs/guardrails dir removed" 0 $?
+cd /; rm -rf "$D"
+
+echo "== rollback after apply + simulated M6b: full undo, collisions survive =="
+D=$(mklegacy); cd "$D"
+mkdir -p docs/guardrails
+echo "hand-written old VERIFY rules" > docs/guardrails/VERIFY.md
+KEEP=$(sha256sum docs/guardrails/VERIFY.md | awk '{print $1}')
+ORIG=$(sha256sum CLAUDE.md | awk '{print $1}')
+bash "$M" "$HERE" prep >/dev/null 2>&1
+bash "$M" "$HERE" apply >/dev/null 2>&1
+printf '%s\n' '<!-- guardrails-kit: v1.5 migrated 2026-07-10 -->' 'new composed CLAUDE.md' > CLAUDE.md  # simulate M6b
+OUT=$(bash "$M" "$HERE" rollback --yes 2>&1); check "rollback exits 0" 0 $?
+echo "$OUT" | grep -q "COMPLETED migration"; check "sentinel warning shown" 0 $?
+check "CLAUDE.md restored from snapshot" "$ORIG" "$(sha256sum CLAUDE.md | awk '{print $1}')"
+[ ! -e docs/guardrails/CODE.md ]; check "applied kit docs removed" 0 $?
+check "pre-existing collision file KEPT" "$KEEP" "$(sha256sum docs/guardrails/VERIFY.md | awk '{print $1}')"
+ls CLAUDE.md.pre-migration-* >/dev/null 2>&1; check "snapshot kept without --purge" 0 $?
+cd /; rm -rf "$D"
+
 echo
 echo "RESULT: $PASS passed, $FAIL failed"
 [ "$FAIL" -eq 0 ]
