@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.4 -->
-# Guardrails Kit v1.4
+<!-- guardrails-kit: v1.5 -->
+# Guardrails Kit v1.5
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -106,7 +106,20 @@ pointer line in `## Project`). Never edit inside the `BEGIN/END KIT` markers.
 
 ## Install — project with an existing CLAUDE.md
 
-Tell the model (Opus is fine — the procedure is designed for it):
+One command from your project root:
+
+```bash
+<kit>/scripts/migrate.sh <kit>            # mechanical prep: probe, snapshot, collision scan
+<kit>/scripts/migrate-auto.sh --kit <kit> # same + launches the Claude session for you
+```
+
+The script does everything judgment-free (idempotency probe, sha256 snapshot, collision
+pre-scan, kit manifest — writing NO kit docs before your approval), then hands off to
+`/kit-migrate` for the semantic phases; migration always stops at the M5 checkpoint for
+your explicit approval, and the post-approval copies run hash-verified via
+`migrate.sh apply`. Test suite: `scripts/test_migrate.sh`.
+
+No-script fallback — tell the model (Opus is fine — the procedure is designed for it):
 
 > Read MIGRATE.md in <kit path> and execute it exactly, phase by phase.
 
@@ -186,6 +199,13 @@ independent project.
 
 ## Upgrade notes
 
+- v1.5 — migration scripts (design doc 2026-07-10): `scripts/migrate.sh` with gate-respecting
+  `prep` (M0 probe incl. orphaned-log stop, sha256 snapshot, collision pre-scan with verbatim
+  M6a(1) options, kit manifest — zero kit-doc writes before the M5 checkpoint) and `apply`
+  (post-approval hash-verified copies); `scripts/migrate-auto.sh` one-command orchestrator
+  (interactive Claude only — M5 needs a human); 19-case `scripts/test_migrate.sh` suite;
+  MIGRATE.md script-prepped entry note; README migration section rewritten around the
+  one-command path.
 - v1.4 — reasoning scaffolds (roadmap Addendum 5): docs/guardrails/REASONING.md (RE1–RE4:
   worked-example trace before code, counterexample hunt after, invariant comments,
   explain-then-code), PLAN.md P10 (OPTIONS enumeration for multi-shape design decisions),

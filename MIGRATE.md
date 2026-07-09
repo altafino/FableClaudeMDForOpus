@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.4 | This file is executed as a procedure. Do not improvise, reorder, or batch PHASES; batching independent tool calls inside one numbered step is fine. -->
+<!-- guardrails-kit: v1.5 | This file is executed as a procedure. Do not improvise, reorder, or batch PHASES; batching independent tool calls inside one numbered step is fine. -->
 # MIGRATE.md — install the guardrails kit into an existing project
 
 GOVERNING PRINCIPLE — MIGRATION IS TRANSPORT, NOT AUTHORSHIP.
@@ -14,6 +14,7 @@ Definitions used below:
 M0. Run: `grep -n "guardrails-kit:" CLAUDE.md` | `Select-String -Path CLAUDE.md -Pattern "guardrails-kit:"` (a missing CLAUDE.md is a pass — note it). Also probe for an orphaned log: `[ -e docs/guardrails/MIGRATION-LOG.md ] && echo "LOG: EXISTS" || echo "LOG: none"` | `Test-Path docs/guardrails/MIGRATION-LOG.md`.
     Sentinel FOUND -> STOP; switch to UPGRADE mode (bottom of this file). Re-running migration on a migrated project clobbers the original backup.
     Log exists WITHOUT the sentinel -> a prior run aborted: print the log's section headings and ask the user whether to resume from its last completed phase or archive it and start over.
+    Script-prepped entry: docs/guardrails/MIGRATION-PREP.log exists (written by `scripts/migrate.sh <KIT> prep`) -> M0 and M2 are already evidenced there (sha256 contract) — spot-check the snapshot hash once, then start at M1; at M6a run `scripts/migrate.sh <KIT> apply` for the copies (collisions stay yours to resolve per M6a(1)), then verify as written.
     CLAUDE.md does not exist -> FRESH INSTALL: do only M1 (print the inventory in chat; decisions FLAG-to-user only, no log needed), M6a, M6d, M8 items 3, 4, 6, and M9 in fresh-install form.
 
 ## Phase 1 — instruction-surface discovery

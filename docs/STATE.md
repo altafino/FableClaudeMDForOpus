@@ -29,6 +29,7 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Workflows: research wf_f57b6575, review wf_aeae1114
 
 ## Done
+- Migration scripts v1.5 (2026-07-10) — RESULT: migrate.sh prep/apply (gate-respecting: zero kit-doc writes pre-M5) + migrate-auto.sh + test_migrate.sh 19/19 green; MIGRATE.md script-prepped entry note; README one-command section. Design doc: ~/.gstack/.../stefan-dev-design-20260710-migrate-script.md (APPROVED, review 7->fixed). Open: live end-to-end run with a real legacy CLAUDE.md (user assignment).
 - Sonnet full-matrix run (2026-07-09, #20260709-063953, $46.26) — RESULT: 100/100 pass (ceiling); engagement 27/50 (54%) completing the tier gradient Opus 77% -> Sonnet 54% -> Haiku 12%; unverified claims 24/25 -> 33/56; cost +107%. Matrix row published in README.
 - Delta + Haiku eval runs (2026-07-09) — RESULT: Opus delta tasks 20/20 pass (ceiling holds at 5 coupled deliverables; $14.60). Haiku full matrix 100 sessions ($7.42): FIRST correctness delta — rename-sweep without-kit 4/5 vs with-kit 5/5; kit engagement 6/50 (12%) vs Opus 77% -> per-model overlays evidence. Published in README model-compat matrix. Sonnet run in progress at commit time.
 - Eval N=5 hard-task run, Opus 4.8 (2026-07-09, #20260709-041605) — RESULT: 30/30 task-pass (ceiling persists; Opus resisted symptom-patch and test-weakening baits without the kit too); fire-rate 71-80% vs 0%; kit engaged 12/15; unverified claims 11/11 -> 10/21; cost +67% ($0.75 vs $0.45); total $17.99. Published in README.
