@@ -117,7 +117,10 @@ The script does everything judgment-free (idempotency probe, sha256 snapshot, co
 pre-scan, kit manifest — writing NO kit docs before your approval), then hands off to
 `/kit-migrate` for the semantic phases; migration always stops at the M5 checkpoint for
 your explicit approval, and the post-approval copies run hash-verified via
-`migrate.sh apply`. Test suite: `scripts/test_migrate.sh`.
+`migrate.sh apply`. Changed your mind at any point — even after completion?
+`migrate.sh <kit> rollback` restores CLAUDE.md from the snapshot and removes
+exactly what the migration created (pre-existing files always survive), showing
+the full plan and asking before touching anything. Test suite: `scripts/test_migrate.sh`.
 
 No-script fallback — tell the model (Opus is fine — the procedure is designed for it):
 
@@ -199,6 +202,10 @@ independent project.
 
 ## Upgrade notes
 
+- v1.5.1 — migration rollback: `migrate.sh rollback [--yes] [--purge]` (+ `migrate-auto.sh
+  --rollback`) — plan-and-confirm undo that restores CLAUDE.md from the logged snapshot and
+  removes only migration-created files (`APPLIED:`/`PRE-EXISTING:` tracking added to prep and
+  apply); pre-existing files always survive. Suite now 31 cases.
 - v1.5 — migration scripts (design doc 2026-07-10): `scripts/migrate.sh` with gate-respecting
   `prep` (M0 probe incl. orphaned-log stop, sha256 snapshot, collision pre-scan with verbatim
   M6a(1) options, kit manifest — zero kit-doc writes before the M5 checkpoint) and `apply`
