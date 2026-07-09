@@ -247,6 +247,8 @@ Slash commands shift burden to the human; the kit exists to remove that burden. 
 
 CLAUDE.md core +0. Skills ship as `.claude/skills/kit-*/SKILL.md` in the kit repo; install copies the directory (README + MIGRATE gain one line each when implemented). ~14 files, each ≤10 lines.
 
+> **Status 2026-07-09: IMPLEMENTED as kit v1.2** — 15 skills authored (6 workflow + 9 topic packs), lint green (name↔dir match, all referenced doc paths exist, bodies ≤12 lines), harness auto-discovery confirmed live in the authoring session, README install line + MIGRATE M6e added. `/kit-doctor` and `/kit-rearm` follow with their Phase C artifacts.
+
 ## Open Questions
 
 1. Companion packaging: same repo (`hooks/` + README section) or a sibling repo? Same-repo is simpler; sibling keeps the kit's "docs-only" identity strictly clean.
