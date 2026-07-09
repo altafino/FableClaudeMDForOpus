@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.2 -->
-# Guardrails Kit v1.2
+<!-- guardrails-kit: v1.3 -->
+# Guardrails Kit v1.3
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -12,6 +12,12 @@ of the kit's architecture, design principles, and an honest assessment of what i
 transfer. Planned improvements (enforcement hooks, compliance auditing, evals, and new guardrail
 docs for security/performance/frontend/trust/data/tests) live in
 [docs/improvement-roadmap.md](docs/improvement-roadmap.md).
+
+**First results (PILOT test #20260709-022340, N=1 per condition — directional, below the N≥5
+bar of evals/METRICS.md):** in 10 live Opus 4.8 sessions (5 tasks × with/without kit), the kit's
+routing engaged unprompted in 4/5 with-kit sessions, and completion claims without verification
+evidence dropped from 3/3 (without kit) to 3/8 (with kit). The discipline's measured cost:
++61% per task (mean $0.66 vs $0.41; 11.6 vs 6.8 turns) — all 10 sessions solved their task.
 
 ## What's in the kit
 
@@ -114,6 +120,12 @@ Missing markers at the moments their triggers occurred are the non-compliance yo
 
 ## Enforcement companion (optional)
 
+`scripts/install.sh <kit> [target] [--skills]` is the self-verifying fresh installer (hash-checked);
+`python3 scripts/kit-doctor.py` health-checks any installed project (markers, doc set, STATE.md
+shape, drift); `hooks/rearm.py` (SessionStart) deterministically re-injects the post-compaction
+recovery instruction and nudges on stale/missing STATE.md; `evals/` holds the with/without-kit
+eval harness (`evals/run.py`, metrics in `evals/METRICS.md`, 5 solvability-proven tasks).
+
 `hooks/` converts the highest-stakes rules from prose into deterministic Claude Code hooks:
 no Edit of an un-Read file, no Write over an existing file, no generated-path edits, no
 kill-by-image-name, `git push` only after the user runs `scripts/allow-push`, secret-scan on
@@ -133,6 +145,13 @@ files must never be paraphrased. When editing kit content itself, follow
 
 ## Upgrade notes
 
+- v1.3 — Phase C + B4 harness (no kit-doc rule changes): SessionStart re-arm hook
+  (`hooks/rearm.py`, wired in the settings snippet) with STATE.md freshness nudge;
+  self-verifying installer (`scripts/install.sh`); `scripts/kit-doctor.py`;
+  `/kit-rearm` + `/kit-doctor` skills; eval harness (`evals/`: metrics doc, 5
+  solvability-proven tasks, runner with dry-run). Test suite now 23 cases. Kit
+  docs remain v1.1. Includes the first pilot eval results (N=1, Opus 4.8, marked
+  as pilot in the intro); N>=5 numbers per evals/METRICS.md still pending.
 - v1.2 — slash-skill layer (roadmap Addendum 4 / Phase C2+): 15 skills under
   `.claude/skills/kit-*/` — 6 workflow commands (kit-verify, kit-audit, kit-state,
   kit-migrate, kit-plan, kit-debug) + 9 topic packs (kit-sql, kit-nosql, kit-go,

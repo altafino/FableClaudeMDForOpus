@@ -66,6 +66,23 @@ check "no edits + done-claim -> allow"    0 "$(run_stop "$T")"
 T="$TMP/t4.jsonl"; mk_transcript "$T" "Edited files. EDITED-UNVERIFIED: a.py" 1
 check "edited + EDITED-UNVERIFIED -> allow" 0 "$(run_stop "$T")"
 
+echo "== rearm.py =="
+KITDIR="$TMP/kitproj"; mkdir -p "$KITDIR/docs"
+echo '<!-- guardrails-kit: v1.2 -->' > "$KITDIR/CLAUDE.md"
+run_rearm() { printf '{"cwd":"%s","source":"%s"}' "$1" "$2" | python3 "$HERE/rearm.py" 2>/dev/null; }
+OUT=$(run_rearm "$KITDIR" compact)
+echo "$OUT" | grep -q "routing row 6" && echo "$OUT" | grep -q "STATE.md is missing" \
+  && { PASS=$((PASS+1)); echo "  ok  compact -> re-arm + missing-STATE nudge"; } \
+  || { FAIL=$((FAIL+1)); echo "FAIL  compact re-arm output: $OUT"; }
+mkdir -p "$KITDIR/docs"; echo x > "$KITDIR/docs/STATE.md"
+OUT=$(run_rearm "$KITDIR" startup)
+[ -z "$OUT" ] && { PASS=$((PASS+1)); echo "  ok  startup + fresh STATE -> silent"; } \
+  || { FAIL=$((FAIL+1)); echo "FAIL  startup not silent: $OUT"; }
+NOKIT="$TMP/nokit"; mkdir -p "$NOKIT"
+OUT=$(run_rearm "$NOKIT" compact)
+[ -z "$OUT" ] && { PASS=$((PASS+1)); echo "  ok  non-kit project -> silent"; } \
+  || { FAIL=$((FAIL+1)); echo "FAIL  non-kit not silent: $OUT"; }
+
 rm -f "$STATE"
 echo
 echo "RESULT: $PASS passed, $FAIL failed"

@@ -29,13 +29,16 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Workflows: research wf_f57b6575, review wf_aeae1114
 
 ## Done
+- Eval pilot, Opus 4.8, N=1 (2026-07-09) — RESULT: 10/10 sessions task-PASS (ceiling: tasks too easy to differentiate pass rate); kit engaged 4/5 with-kit runs; unverified done-claims 3/8 with-kit vs 3/3 without-kit; mean cost $0.66 vs $0.41 (+61%), turns 11.6 vs 6.8; total $5.36. Raw: evals/results/20260709-022340.jsonl (gitignored, local).
 - Research workflow (8 lenses) — RESULT: 155 findings in docs/research-digest.md.
 - Kit v1 draft — RESULT: commit 85d7fd5.
 - Adversarial review (13 reviewers) — RESULT: 19 blockers / 94 majors / 80 minors; all blockers+majors and substantive minors applied in the v1.0 rewrite.
 - Verification — RESULT: broken doc paths none; missing rule IDs none; paired trigger lists byte-identical in all owning files.
 
 ## Open items
-- Improvement roadmap Phase C remainder (re-arm hook, installer, kit doctor + then /kit-doctor //kit-rearm skills) and Phase B4 (eval harness; B1-B3 hooks + auditor shipped v1.1.1, live-session validation still pending). Slash-skill layer shipped v1.2 (Addendum 4).
+- Run the evals for real: `python3 evals/run.py --model claude-opus-4-8 --n 5` (and sonnet) — costs API budget; publish numbers per evals/METRICS.md into README (feeds A4 model-compat + overlays).
+- Live-session validation of hooks (enable settings snippet in a test project; force a compaction for rearm.py).
+- Field-test assignment (unchanged): install kit into one real Opus project, audit the transcript.
 - Field-test assignment: install kit v1.1 into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines, record fired vs missed per rule ID.
 - Roadmap Open Questions 6-7 (fifth CAPS slot for DA4; TRUST hook hardening) — decide before/with Phase B.
 - CODE.md at 1255 words (F11 soft cap ~1100; VERIFY at 1112) after the v1.1 routing items — decide with field-test data whether to split CODE.md by trigger (F11 remedy) or accept.
