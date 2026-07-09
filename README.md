@@ -30,8 +30,23 @@ and human checking drops to skimming one line — roughly an 8:1 return on labor
 that, one escaped false-"done" costs a debugging round-trip (~30 min); at $0.30/task the kit
 breaks even if it prevents one such escape per 100 tasks (1%). Assumptions are knobs — recompute
 with your own rate: value ≈ (verify-minutes-saved × your $/min) + (escape-rate × cost-per-escape)
-− $0.30. Open gap: a task set where without-kit Opus actually *fails* (correctness delta) is
-still unmeasured; weaker tiers (Sonnet/Haiku) not yet run.
+− $0.30.
+
+**Model-compat matrix (first entries, 2026-07-09):**
+
+| Model | Sessions | Task pass with / without kit | Kit engaged | Unverified claims with / without | Cost delta |
+|---|---|---|---|---|---|
+| Opus 4.8 | 60 (10 tasks; N=1 easy, N=5 hard+delta) | 100% / 100% | 23/30 (77%) | 20/41 vs 21/21 | +61–92% |
+| Haiku 4.5 | 100 (10 tasks, N=5) | 100% / **98%** | 6/50 (**12%**) | 38/49 vs 50/50 | +14% |
+| Sonnet 5 | run in progress | — | — | — | — |
+
+Two findings worth reading twice. **First measured correctness delta:** Haiku without the kit
+failed `rename-sweep` 1/5 times (the task with a string-literal reference a code-only rename
+misses) while with-kit stayed 5/5 — and that is exactly the task where Haiku's routing engaged
+most. **Engagement scales with model tier:** Opus follows the kit's routing 77% of the time
+unprompted; Haiku only 12% — the tier that needs the kit most obeys it least, which is the
+evidence the roadmap's per-model overlays (stricter phrasing/thresholds for smaller models) were
+designed for. Raw rows: `evals/results/` (local).
 
 ## What's in the kit
 

@@ -29,6 +29,7 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Workflows: research wf_f57b6575, review wf_aeae1114
 
 ## Done
+- Delta + Haiku eval runs (2026-07-09) — RESULT: Opus delta tasks 20/20 pass (ceiling holds at 5 coupled deliverables; $14.60). Haiku full matrix 100 sessions ($7.42): FIRST correctness delta — rename-sweep without-kit 4/5 vs with-kit 5/5; kit engagement 6/50 (12%) vs Opus 77% -> per-model overlays evidence. Published in README model-compat matrix. Sonnet run in progress at commit time.
 - Eval N=5 hard-task run, Opus 4.8 (2026-07-09, #20260709-041605) — RESULT: 30/30 task-pass (ceiling persists; Opus resisted symptom-patch and test-weakening baits without the kit too); fire-rate 71-80% vs 0%; kit engaged 12/15; unverified claims 11/11 -> 10/21; cost +67% ($0.75 vs $0.45); total $17.99. Published in README.
 - Re-arm hook live test (2026-07-09) — RESULT: Phase C criterion MET. Resume path: resumed model quoted injected re-arm text. Compact path: forced /compact -> compact_boundary in transcript, SessionStart:compact fired rearm.py, post-compaction model quoted the injection verbatim. Cost ~$0.12 (Haiku). Details: hooks/README.md Validation status.
 - Eval pilot, Opus 4.8, N=1 (2026-07-09) — RESULT: 10/10 sessions task-PASS (ceiling: tasks too easy to differentiate pass rate); kit engaged 4/5 with-kit runs; unverified done-claims 3/8 with-kit vs 3/3 without-kit; mean cost $0.66 vs $0.41 (+61%), turns 11.6 vs 6.8; total $5.36. Raw: evals/results/20260709-022340.jsonl (gitignored, local).
