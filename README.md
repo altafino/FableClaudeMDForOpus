@@ -37,16 +37,16 @@ with your own rate: value ≈ (verify-minutes-saved × your $/min) + (escape-rat
 | Model | Sessions | Task pass with / without kit | Kit engaged | Unverified claims with / without | Cost delta |
 |---|---|---|---|---|---|
 | Opus 4.8 | 60 (10 tasks; N=1 easy, N=5 hard+delta) | 100% / 100% | 23/30 (77%) | 20/41 vs 21/21 | +61–92% |
+| Sonnet 5 | 100 (10 tasks, N=5) | 100% / 100% | 27/50 (54%) | 33/56 vs 24/25 | +107% |
 | Haiku 4.5 | 100 (10 tasks, N=5) | 100% / **98%** | 6/50 (**12%**) | 38/49 vs 50/50 | +14% |
-| Sonnet 5 | run in progress | — | — | — | — |
 
 Two findings worth reading twice. **First measured correctness delta:** Haiku without the kit
 failed `rename-sweep` 1/5 times (the task with a string-literal reference a code-only rename
 misses) while with-kit stayed 5/5 — and that is exactly the task where Haiku's routing engaged
-most. **Engagement scales with model tier:** Opus follows the kit's routing 77% of the time
-unprompted; Haiku only 12% — the tier that needs the kit most obeys it least, which is the
-evidence the roadmap's per-model overlays (stricter phrasing/thresholds for smaller models) were
-designed for. Raw rows: `evals/results/` (local).
+most. **Engagement scales monotonically with model tier:** Opus follows the kit's routing 77%
+of the time unprompted, Sonnet 54%, Haiku 12% — the tier that needs the kit most obeys it
+least, which is the evidence the roadmap's per-model overlays (stricter phrasing/thresholds
+for smaller models) were designed for. Raw rows: `evals/results/` (local).
 
 ## What's in the kit
 
