@@ -35,7 +35,9 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Verification — RESULT: broken doc paths none; missing rule IDs none; paired trigger lists byte-identical in all owning files.
 
 ## Open items
-- Improvement roadmap Phase C remainder (re-arm hook, installer, kit doctor + then /kit-doctor //kit-rearm skills) and Phase B4 (eval harness; B1-B3 hooks + auditor shipped v1.1.1, live-session validation still pending). Slash-skill layer shipped v1.2 (Addendum 4).
+- Run the evals for real: `python3 evals/run.py --model claude-opus-4-8 --n 5` (and sonnet) — costs API budget; publish numbers per evals/METRICS.md into README (feeds A4 model-compat + overlays).
+- Live-session validation of hooks (enable settings snippet in a test project; force a compaction for rearm.py).
+- Field-test assignment (unchanged): install kit into one real Opus project, audit the transcript.
 - Field-test assignment: install kit v1.1 into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines, record fired vs missed per rule ID.
 - Roadmap Open Questions 6-7 (fifth CAPS slot for DA4; TRUST hook hardening) — decide before/with Phase B.
 - CODE.md at 1255 words (F11 soft cap ~1100; VERIFY at 1112) after the v1.1 routing items — decide with field-test data whether to split CODE.md by trigger (F11 remedy) or accept.

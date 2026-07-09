@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.2 -->
-# Guardrails Kit v1.2
+<!-- guardrails-kit: v1.3 -->
+# Guardrails Kit v1.3
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -114,6 +114,12 @@ Missing markers at the moments their triggers occurred are the non-compliance yo
 
 ## Enforcement companion (optional)
 
+`scripts/install.sh <kit> [target] [--skills]` is the self-verifying fresh installer (hash-checked);
+`python3 scripts/kit-doctor.py` health-checks any installed project (markers, doc set, STATE.md
+shape, drift); `hooks/rearm.py` (SessionStart) deterministically re-injects the post-compaction
+recovery instruction and nudges on stale/missing STATE.md; `evals/` holds the with/without-kit
+eval harness (`evals/run.py`, metrics in `evals/METRICS.md`, 5 solvability-proven tasks).
+
 `hooks/` converts the highest-stakes rules from prose into deterministic Claude Code hooks:
 no Edit of an un-Read file, no Write over an existing file, no generated-path edits, no
 kill-by-image-name, `git push` only after the user runs `scripts/allow-push`, secret-scan on
@@ -133,6 +139,12 @@ files must never be paraphrased. When editing kit content itself, follow
 
 ## Upgrade notes
 
+- v1.3 — Phase C + B4 harness (no kit-doc rule changes): SessionStart re-arm hook
+  (`hooks/rearm.py`, wired in the settings snippet) with STATE.md freshness nudge;
+  self-verifying installer (`scripts/install.sh`); `scripts/kit-doctor.py`;
+  `/kit-rearm` + `/kit-doctor` skills; eval harness (`evals/`: metrics doc, 5
+  solvability-proven tasks, runner with dry-run). Test suite now 23 cases. Kit
+  docs remain v1.1; eval NUMBERS pending real model runs.
 - v1.2 — slash-skill layer (roadmap Addendum 4 / Phase C2+): 15 skills under
   `.claude/skills/kit-*/` — 6 workflow commands (kit-verify, kit-audit, kit-state,
   kit-migrate, kit-plan, kit-debug) + 9 topic packs (kit-sql, kit-nosql, kit-go,
