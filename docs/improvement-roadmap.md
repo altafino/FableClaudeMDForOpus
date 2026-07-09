@@ -16,8 +16,9 @@ Mode: Builder
 | v1.2 | **Phase C2+** — 15 slash skills (6 workflow + 9 topic packs, F7 pointer bundles, auto-discovery confirmed live), MIGRATE M6e |
 | v1.3 | **Phase C1/C3/C4 + B4 harness** — SessionStart re-arm hook + STATE-freshness nudge, self-verifying installer, `kit-doctor.py` (8-ok on this repo), `/kit-rearm` + `/kit-doctor`, eval harness (metrics doc, 5 solvability-proven tasks, runner; suite 23 cases) |
 | pilot | Opus 4.8 eval pilot #20260709-022340 (N=1): 10/10 task-pass (ceiling — tasks too easy), kit engaged 4/5, unverified done-claims 3/3 → 3/8, cost +61% ($0.66 vs $0.41) — published in README, marked pilot |
+| N=5 run | 3 hard trap tasks × 2 conditions × 5 on Opus 4.8 (#20260709-041605, $17.99): 30/30 task-pass (**ceiling persists even on trap tasks** — Opus didn't fall for the symptom-patch or test-weakening baits without the kit either), fire-rate 71–80% vs 0%, kit engaged 12/15, unverified claims 11/11 → 10/21, cost +67% ($0.75 vs $0.45) — published in README |
 
-**Still open:** harder eval tasks + N≥5 published numbers (METRICS.md bar); live-session hook validation incl. the forced-compaction re-arm test (the unmet Phase C criterion); the field test on a real external project; per-model overlays + model-compat matrix (eval-fed); evals CI; Open Questions 2, 3, 5 (live part), 6.
+**Still open:** a task set where without-kit Opus actually *fails* (correctness delta unmeasured — 40/40 sessions passed regardless of condition); Sonnet/Haiku eval runs (model-compat matrix + per-model overlays consume them); live-session validation of the deny/stop hooks (re-arm hook live-verified 2026-07-09 — see hooks/README.md Validation status); the field test on a real external project; evals CI; Open Questions 2, 3, 6.
 
 ## Problem Statement
 
@@ -273,8 +274,8 @@ CLAUDE.md core +0. Skills ship as `.claude/skills/kit-*/SKILL.md` in the kit rep
 ## Success Criteria
 
 - **Phase A** — **MET (v1.1)**, exceeded on one point: the TRAPS split shipped as six real packs, not only a design. Fresh install cross-platform ✓, PROJECT template ✓, F15 bumps + upgrade notes ✓.
-- **Phase C** — **PARTIALLY MET (v1.2/v1.3)**: installer reproduces M8 items 3/4/6 with zero manual steps ✓ (hash-verified into a temp target); skill auto-load observed live during authoring ✓; STATE freshness indicator implemented and synthetically tested ✓. **Unmet**: the forced-compaction live test of the re-arm hook (synthetic inputs only so far) — this is the remaining gate.
-- **Phase B** — **MET except the numbers (v1.1.1/v1.3 + pilot)**: every deny hook blocks its trigger AND passes bypass+log in the 23-case suite ✓; Stop-hook blocks unverified done-claims and passes `Verified:` turns ✓; auditor scorecards a transcript in seconds ✓. **Unmet**: published with/without-kit numbers at N≥5 — the pilot (N=1) is directional only, and its ceiling shows the task set needs harder tasks first. Pilot proxies vs the provisional targets: with-kit fire-rates 50–100% per task (vs 0% without); unverified done-claims 3/8 vs 3/3.
+- **Phase C** — **MET (v1.2/v1.3 + live test 2026-07-09)**: installer reproduces M8 items 3/4/6 with zero manual steps ✓; skill auto-load observed live ✓; STATE freshness indicator ✓; forced-compaction re-arm ✓ — a live `/compact` produced a real `compact_boundary`, `SessionStart:compact` fired the hook, and the post-compaction model quoted the injected S1 instruction verbatim (hooks/README.md Validation status). Residual nuance: auto-compaction under context pressure shares the same `source=compact` path but was not separately triggered; behavioral follow-through (model obeys S1 on a real task) is field-test scope.
+- **Phase B** — **MET (v1.1.1/v1.3 + N=5 run 2026-07-09)**: every deny hook blocks its trigger AND passes bypass+log in the 23-case suite ✓; Stop-hook blocks unverified done-claims and passes `Verified:` turns ✓; auditor scorecards a transcript in seconds ✓; with/without-kit numbers published at N=5 for Opus on the hard task set ✓ — measurable reduction in unverified done-claims (11/11 → 10/21) ✓; marker-fire rate 71–80% vs the provisional >80% target (near-target; the threshold was explicitly provisional and the auditor's event ground-truthing is heuristic). Residual: correctness-delta task design and weaker-tier runs (tracked in Still open).
 
 ## Distribution Plan
 
@@ -286,10 +287,10 @@ Unchanged for the kit itself: git repo copy per README (now cross-platform). Com
 1b. ✅ **Phase A2 (Addendum 1, v1.1)**: SECURITY (SEC1–8), PERFORMANCE (PERF1–6), FRONTEND (FE1–7); C16/C17/C18, V13/V14.
 1c. ✅ **Phase A3 (Addendum 2, v1.1)**: TRUST (TR1–4), DATA (DA1–6), TEST (TE1–5); C19/C20/C21 + RS6, E18/E19, S8, F16. (Open Question 6 deliberately left open; 7 resolved model-side.)
 1d. ✅ **Phase A4 (Addendum 3, v1.1)**: six trap packs incl. TRAPS-SQL/TRAPS-NOSQL; C7 pack dispatch.
-2. 🔶 **Phase C prototype (v1.3)**: re-arm hook + settings snippet shipped and synthetically tested; **remaining: force a real compaction in a test session and grep the transcript for the S1 sequence** (the unmet Phase C criterion).
+2. ✅ **Phase C prototype (v1.3 + live test 2026-07-09)**: re-arm hook shipped, synthetically tested, then live-verified on both resume and forced `/compact` (compact_boundary + hook fire + post-compaction model quoting the injection; ~$0.12 in Haiku sessions).
 3. ⏳ **Field-test assignment**: install the kit into one real Opus 4.8 project, run 2–3 real tasks, audit the transcripts (now one command: `/kit-audit`); record fired vs. missed per rule ID. Still the highest-value open item.
 4. 🔶 **Phase B auditor (v1.1.1)**: built ahead of the field test (order inverted from the original plan); field-test data now tunes it — especially the done-claim heuristic's false positives observed in the pilot.
-5. 🔶 **Phase B evals (v1.3 + pilot)**: harness + metrics shipped; Opus N=1 pilot run and published (marked pilot). **Remaining: author 2–3 harder tasks (pilot hit a 100%-pass ceiling), then run N≥5 per condition and publish per METRICS.md.**
+5. ✅ **Phase B evals (v1.3 + pilot + N=5 run 2026-07-09)**: harness + metrics shipped; Opus N=1 pilot AND the N=5 hard-task matrix run and published (30 sessions, $17.99). Key finding: pass-rate ceiling persists on Opus even with trap tasks — the measured kit effect on this tier is verifiability (fire-rate 71–80% vs 0%; unverified claims 11/11 → 10/21), not correctness. Follow-on: a genuinely Opus-failing task design, and Sonnet/Haiku runs for the tier where correctness deltas are likelier.
 6. ⏳ **Self-tuning loop**: F16 procedure exists (v1.1); per-rule fire aggregation across sessions not yet built — needs a body of audited sessions first (item 3).
 7. 🔶 **Follow-ons**: `kit doctor` shipped (v1.3) ✅; per-model threshold overlays still pending — they consume item 5's numbers.
 8. ✅ **Phase C2+ (Addendum 4, v1.2/v1.3)**: 17 skills total — 8 workflow commands (incl. /kit-doctor, /kit-rearm) + 9 topic packs.

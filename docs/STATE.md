@@ -29,6 +29,8 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Workflows: research wf_f57b6575, review wf_aeae1114
 
 ## Done
+- Eval N=5 hard-task run, Opus 4.8 (2026-07-09, #20260709-041605) — RESULT: 30/30 task-pass (ceiling persists; Opus resisted symptom-patch and test-weakening baits without the kit too); fire-rate 71-80% vs 0%; kit engaged 12/15; unverified claims 11/11 -> 10/21; cost +67% ($0.75 vs $0.45); total $17.99. Published in README.
+- Re-arm hook live test (2026-07-09) — RESULT: Phase C criterion MET. Resume path: resumed model quoted injected re-arm text. Compact path: forced /compact -> compact_boundary in transcript, SessionStart:compact fired rearm.py, post-compaction model quoted the injection verbatim. Cost ~$0.12 (Haiku). Details: hooks/README.md Validation status.
 - Eval pilot, Opus 4.8, N=1 (2026-07-09) — RESULT: 10/10 sessions task-PASS (ceiling: tasks too easy to differentiate pass rate); kit engaged 4/5 with-kit runs; unverified done-claims 3/8 with-kit vs 3/3 without-kit; mean cost $0.66 vs $0.41 (+61%), turns 11.6 vs 6.8; total $5.36. Raw: evals/results/20260709-022340.jsonl (gitignored, local).
 - Research workflow (8 lenses) — RESULT: 155 findings in docs/research-digest.md.
 - Kit v1 draft — RESULT: commit 85d7fd5.
@@ -36,8 +38,8 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Verification — RESULT: broken doc paths none; missing rule IDs none; paired trigger lists byte-identical in all owning files.
 
 ## Open items
-- Run the evals for real: `python3 evals/run.py --model claude-opus-4-8 --n 5` (and sonnet) — costs API budget; publish numbers per evals/METRICS.md into README (feeds A4 model-compat + overlays).
-- Live-session validation of hooks (enable settings snippet in a test project; force a compaction for rearm.py).
+- Design a task where without-kit Opus actually fails (40/40 sessions passed regardless of condition — correctness delta unmeasured); then run Sonnet/Haiku for model-compat matrix + overlays.
+- Live-session validation of the deny/stop hooks (rearm.py already live-verified).
 - Field-test assignment (unchanged): install kit into one real Opus project, audit the transcript.
 - Field-test assignment: install kit v1.1 into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines, record fired vs missed per rule ID.
 - Roadmap Open Questions 6-7 (fifth CAPS slot for DA4; TRUST hook hardening) — decide before/with Phase B.
