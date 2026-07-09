@@ -143,6 +143,15 @@ which is exactly why project content must never be interleaved into kit blocks, 
 files must never be paraphrased. When editing kit content itself, follow
 `docs/guardrails/_FORMAT.md`.
 
+## Origins & thanks
+
+This project began as a fork of
+[TheColliny/FableClaudeMDForOpus](https://github.com/TheColliny/FableClaudeMDForOpus) — thanks to
+TheColliny for the original Guardrails Kit v1.0: the research, the core concept, and the initial
+rule set. As the original appears to be a one-time release while this fork has grown well beyond
+it (coverage docs, enforcement hooks, evals, slash skills — v1.1+), it continues here as an
+independent project.
+
 ## Upgrade notes
 
 - v1.3 — Phase C + B4 harness (no kit-doc rule changes): SessionStart re-arm hook
