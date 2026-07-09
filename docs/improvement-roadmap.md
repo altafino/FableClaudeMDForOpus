@@ -17,7 +17,7 @@ Mode: Builder
 | v1.3 | **Phase C1/C3/C4 + B4 harness** — SessionStart re-arm hook + STATE-freshness nudge, self-verifying installer, `kit-doctor.py` (8-ok on this repo), `/kit-rearm` + `/kit-doctor`, eval harness (metrics doc, 5 solvability-proven tasks, runner; suite 23 cases) |
 | pilot | Opus 4.8 eval pilot #20260709-022340 (N=1): 10/10 task-pass (ceiling — tasks too easy), kit engaged 4/5, unverified done-claims 3/3 → 3/8, cost +61% ($0.66 vs $0.41) — published in README, marked pilot |
 
-**Still open:** harder eval tasks + N≥5 published numbers (METRICS.md bar); live-session hook validation incl. the forced-compaction re-arm test (the unmet Phase C criterion); the field test on a real external project; per-model overlays + model-compat matrix (eval-fed); evals CI; Open Questions 2, 3, 5 (live part), 6.
+**Still open:** harder eval tasks + N≥5 published numbers (METRICS.md bar); live-session validation of the deny/stop hooks (re-arm hook live-verified 2026-07-09 — see hooks/README.md Validation status); the field test on a real external project; per-model overlays + model-compat matrix (eval-fed); evals CI; Open Questions 2, 3, 6.
 
 ## Problem Statement
 
@@ -273,7 +273,7 @@ CLAUDE.md core +0. Skills ship as `.claude/skills/kit-*/SKILL.md` in the kit rep
 ## Success Criteria
 
 - **Phase A** — **MET (v1.1)**, exceeded on one point: the TRAPS split shipped as six real packs, not only a design. Fresh install cross-platform ✓, PROJECT template ✓, F15 bumps + upgrade notes ✓.
-- **Phase C** — **PARTIALLY MET (v1.2/v1.3)**: installer reproduces M8 items 3/4/6 with zero manual steps ✓ (hash-verified into a temp target); skill auto-load observed live during authoring ✓; STATE freshness indicator implemented and synthetically tested ✓. **Unmet**: the forced-compaction live test of the re-arm hook (synthetic inputs only so far) — this is the remaining gate.
+- **Phase C** — **MET (v1.2/v1.3 + live test 2026-07-09)**: installer reproduces M8 items 3/4/6 with zero manual steps ✓; skill auto-load observed live ✓; STATE freshness indicator ✓; forced-compaction re-arm ✓ — a live `/compact` produced a real `compact_boundary`, `SessionStart:compact` fired the hook, and the post-compaction model quoted the injected S1 instruction verbatim (hooks/README.md Validation status). Residual nuance: auto-compaction under context pressure shares the same `source=compact` path but was not separately triggered; behavioral follow-through (model obeys S1 on a real task) is field-test scope.
 - **Phase B** — **MET except the numbers (v1.1.1/v1.3 + pilot)**: every deny hook blocks its trigger AND passes bypass+log in the 23-case suite ✓; Stop-hook blocks unverified done-claims and passes `Verified:` turns ✓; auditor scorecards a transcript in seconds ✓. **Unmet**: published with/without-kit numbers at N≥5 — the pilot (N=1) is directional only, and its ceiling shows the task set needs harder tasks first. Pilot proxies vs the provisional targets: with-kit fire-rates 50–100% per task (vs 0% without); unverified done-claims 3/8 vs 3/3.
 
 ## Distribution Plan
@@ -286,7 +286,7 @@ Unchanged for the kit itself: git repo copy per README (now cross-platform). Com
 1b. ✅ **Phase A2 (Addendum 1, v1.1)**: SECURITY (SEC1–8), PERFORMANCE (PERF1–6), FRONTEND (FE1–7); C16/C17/C18, V13/V14.
 1c. ✅ **Phase A3 (Addendum 2, v1.1)**: TRUST (TR1–4), DATA (DA1–6), TEST (TE1–5); C19/C20/C21 + RS6, E18/E19, S8, F16. (Open Question 6 deliberately left open; 7 resolved model-side.)
 1d. ✅ **Phase A4 (Addendum 3, v1.1)**: six trap packs incl. TRAPS-SQL/TRAPS-NOSQL; C7 pack dispatch.
-2. 🔶 **Phase C prototype (v1.3)**: re-arm hook + settings snippet shipped and synthetically tested; **remaining: force a real compaction in a test session and grep the transcript for the S1 sequence** (the unmet Phase C criterion).
+2. ✅ **Phase C prototype (v1.3 + live test 2026-07-09)**: re-arm hook shipped, synthetically tested, then live-verified on both resume and forced `/compact` (compact_boundary + hook fire + post-compaction model quoting the injection; ~$0.12 in Haiku sessions).
 3. ⏳ **Field-test assignment**: install the kit into one real Opus 4.8 project, run 2–3 real tasks, audit the transcripts (now one command: `/kit-audit`); record fired vs. missed per rule ID. Still the highest-value open item.
 4. 🔶 **Phase B auditor (v1.1.1)**: built ahead of the field test (order inverted from the original plan); field-test data now tunes it — especially the done-claim heuristic's false positives observed in the pilot.
 5. 🔶 **Phase B evals (v1.3 + pilot)**: harness + metrics shipped; Opus N=1 pilot run and published (marked pilot). **Remaining: author 2–3 harder tasks (pilot hit a 100%-pass ceiling), then run N≥5 per condition and publish per METRICS.md.**

@@ -29,6 +29,7 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Workflows: research wf_f57b6575, review wf_aeae1114
 
 ## Done
+- Re-arm hook live test (2026-07-09) — RESULT: Phase C criterion MET. Resume path: resumed model quoted injected re-arm text. Compact path: forced /compact -> compact_boundary in transcript, SessionStart:compact fired rearm.py, post-compaction model quoted the injection verbatim. Cost ~$0.12 (Haiku). Details: hooks/README.md Validation status.
 - Eval pilot, Opus 4.8, N=1 (2026-07-09) — RESULT: 10/10 sessions task-PASS (ceiling: tasks too easy to differentiate pass rate); kit engaged 4/5 with-kit runs; unverified done-claims 3/8 with-kit vs 3/3 without-kit; mean cost $0.66 vs $0.41 (+61%), turns 11.6 vs 6.8; total $5.36. Raw: evals/results/20260709-022340.jsonl (gitignored, local).
 - Research workflow (8 lenses) — RESULT: 155 findings in docs/research-digest.md.
 - Kit v1 draft — RESULT: commit 85d7fd5.

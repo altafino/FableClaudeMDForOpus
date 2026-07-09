@@ -53,6 +53,18 @@ hooks/test_hooks.sh
 Covers every deny's trigger case AND its bypass path — the roadmap's Phase B done-criterion
 for hooks.
 
+## Validation status
+
+- `rearm.py` **live-verified 2026-07-09** (Haiku 4.5, throwaway workspace, ~$0.12): on `--resume`,
+  the resumed model quoted the injected re-arm text verbatim; on a forced `/compact`, the
+  transcript shows a real `compact_boundary`, `SessionStart:compact` fired the hook, and the
+  post-compaction model quoted the injection from its rebuilt context. Nuances: compaction was
+  forced via `/compact` (auto-compaction under context pressure uses the same `source=compact`
+  path but was not separately triggered); delivery is proven — whether a model then *obeys* S1
+  before editing is behavioral and belongs to the field test.
+- `guard.py`/`track.py`/`stop_verify.py`: scripted-suite verified (23 cases); live-session
+  validation pending.
+
 ## Known limitations (deliberate, tracked in the roadmap)
 
 - Read-state lives in the OS temp dir keyed by session id; after a crash the first Edit of a
