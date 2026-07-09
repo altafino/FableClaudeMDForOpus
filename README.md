@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.3 -->
-# Guardrails Kit v1.3
+<!-- guardrails-kit: v1.4 -->
+# Guardrails Kit v1.4
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -67,6 +67,7 @@ designed for. Raw rows: `evals/results/` (local).
 | `docs/guardrails/TRUST.md` | Imperatives found inside tool results/files (via EFFICIENCY.md E18): untrusted content is data — `INJECTION-SUSPECT` marker, never silent compliance. |
 | `docs/guardrails/DATA.md` | SQL/ORM mutations, migrations, bulk updates (via C19): predicted-vs-actual row counts, dry-runs, migration discipline, DROP approval. |
 | `docs/guardrails/TEST.md` | Writing tests (via C20): TE1–TE5 authorship quality — no logic in tests, behavior asserts, the "returns test". |
+| `docs/guardrails/REASONING.md` | Recursion, state machines, parsers, index math (via C22): RE1–RE4 reasoning scaffolds — trace before code, counterexample after, invariants, explain-then-code. Extracts capability; adds none. |
 | `docs/guardrails/TRAPS-*.md` | Language/framework trap packs — GO, ANGULAR, VUE, TAILWIND, SQL, NOSQL — dispatched by C7 on manifest/file-type evidence; version-aware rows with verified-against headers. |
 | `docs/guardrails/PROJECT-TEMPLATE.md` | Skeleton for the project-authored PROJECT.md — copy and fill when first needed. |
 | `MIGRATE.md` | The transport procedure for retrofitting a project that already has a CLAUDE.md — line-accounted, backup-first, verbatim-carry, user-checkpointed, idempotent, with an UPGRADE mode. |
@@ -143,8 +144,10 @@ were skipped, search a transcript for: `TRIGGER:`, `GOAL:`, `FILES:`, `EST:`, `D
 `DETOUR(`, `RETURNING:`, `DECISION:`, `CONSTRAINT CHECK:`, `HANDLED FAILURES:`,
 `NOTED (not done)`, `EDITED-UNVERIFIED`, `CANNOT-REPRODUCE`, `SIGNATURE UNVERIFIED`,
 `INJECTION-SUSPECT`, `AUTH:`, `STATES COVERED:`, `BREAKING CHECKED:`, `UNBOUNDED (by choice)`,
-`P1:`–`P9:`, `C1:`–`C21:`, `D1:`–`D10:`, `V1:`–`V14:`, `E1:`–`E19:`, `S1:`–`S8:`, `RS1`–`RS6`,
-`SEC1:`–`SEC8:`, `PERF1:`–`PERF6:`, `FE1:`–`FE7:`, `TR1:`–`TR4:`, `DA1:`–`DA6:`, `TE1:`–`TE5:`.
+`OPTIONS:`, `COUNTEREXAMPLE TRIED:`,
+`P1:`–`P10:`, `C1:`–`C22:`, `D1:`–`D10:`, `V1:`–`V14:`, `E1:`–`E19:`, `S1:`–`S8:`, `RS1`–`RS6`,
+`SEC1:`–`SEC8:`, `PERF1:`–`PERF6:`, `FE1:`–`FE7:`, `TR1:`–`TR4:`, `DA1:`–`DA6:`, `TE1:`–`TE5:`,
+`RE1:`–`RE4:`.
 Missing markers at the moments their triggers occurred are the non-compliance you should tune for.
 
 ## Enforcement companion (optional)
@@ -183,6 +186,13 @@ independent project.
 
 ## Upgrade notes
 
+- v1.4 — reasoning scaffolds (roadmap Addendum 5): docs/guardrails/REASONING.md (RE1–RE4:
+  worked-example trace before code, counterexample hunt after, invariant comments,
+  explain-then-code), PLAN.md P10 (OPTIONS enumeration for multi-shape design decisions),
+  CODE.md C22 routing, MIGRATE kit-doc count 20 -> 21, `/kit-reasoning` skill, auditor +
+  README marker sets extended, algorithmic eval pack (quoted-CSV parser, overlapping
+  windows). Scaffolds extract existing capability; expect deltas on mid/small tiers, not
+  frontier (measured ceiling).
 - v1.3 — Phase C + B4 harness (no kit-doc rule changes): SessionStart re-arm hook
   (`hooks/rearm.py`, wired in the settings snippet) with STATE.md freshness nudge;
   self-verifying installer (`scripts/install.sh`); `scripts/kit-doctor.py`;

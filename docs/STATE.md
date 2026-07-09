@@ -44,7 +44,8 @@ Kit v1.1: v1.0 core + Phase A of docs/improvement-roadmap.md implemented (12 new
 - Field-test assignment (unchanged): install kit into one real Opus project, audit the transcript.
 - Field-test assignment: install kit v1.1 into one real Opus 4.8 project, grep transcript for TRIGGER:/V-lines, record fired vs missed per rule ID.
 - Roadmap Open Questions 6-7 (fifth CAPS slot for DA4; TRUST hook hardening) — decide before/with Phase B.
-- CODE.md at 1255 words (F11 soft cap ~1100; VERIFY at 1112) after the v1.1 routing items — decide with field-test data whether to split CODE.md by trigger (F11 remedy) or accept.
+- CODE.md at 1269 words (F11 soft cap ~1100; VERIFY at 1112) after v1.1 routing items + v1.4 C22 — decide with field-test data whether to split CODE.md by trigger (F11 remedy) or accept.
+- Run the algo eval pack (algo-parser, algo-window) with/without kit on Haiku + Sonnet to measure the REASONING.md scaffold effect (roadmap Next Step 10).
 
 ## Failed attempts
 (none)

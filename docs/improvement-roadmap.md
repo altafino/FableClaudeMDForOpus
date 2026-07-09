@@ -263,6 +263,26 @@ CLAUDE.md core +0. Skills ship as `.claude/skills/kit-*/SKILL.md` in the kit rep
 
 > Implemented (v1.2; `/kit-doctor` + `/kit-rearm` followed in v1.3) — see "Implementation status" at the top.
 
+## Addendum 5 (2026-07-09): Reasoning scaffolds — extracting problem-solving, not adding it
+
+User-approved. Honest boundary first: the kit cannot make a model smarter (80 Opus sessions confirmed the correctness ceiling empirically), and a taste/judgment rulebook would violate F1. The opening: procedures that reliably **extract more of the capability already present** — the prompting techniques known to work (plan-before-code, worked examples, self-checking) converted into event-triggered, artifact-producing rules. Target tier: mid/small models (Haiku showed the first correctness delta; expect ~zero pass-rate gain on frontier tiers).
+
+### New doc: `docs/guardrails/REASONING.md` (kit v1.4)
+
+Routed via CODE.md C22: *"Writing recursion, a state machine, a parser, or index/offset arithmetic? Read docs/guardrails/REASONING.md."* Rules RE1–RE4: worked-example trace as a comment BEFORE the code (code must match the trace — falsifiable, generalizes TRAPS' date/bounds trace rows); a post-code counterexample hunt with the `COUNTEREXAMPLE TRIED:` artifact; an invariant comment for anything stateful; explain-then-code (2–3 plain sentences before the first edit — can't state it plainly = don't understand it yet).
+
+### PLAN.md P10: candidate enumeration
+
+A design decision with 2+ plausible shapes (data structure, algorithm, module boundary, dependency) requires an `OPTIONS:` artifact — 2–3 candidates with one-line tradeoffs and a one-line pick reason — before implementing. The first idea is a candidate, never the default.
+
+### Algorithmic eval pack (correctness-delta bait for mid tiers)
+
+Two tasks where off-by-ones and edge cases are the point: a quoted-CSV field parser (embedded commas, `""` escapes, empty fields) and an overlapping-window chunker (partial tails, overlap≥size errors, empty input). These pair with the Haiku/Sonnet finding: weaker tiers CAN show pass-rate deltas; these tasks aim the measurement at exactly the failure class RE1/RE2 target.
+
+### Budget / tie-ins
+
+CLAUDE.md core +0 (routing rides on CODE.md C22 + PLAN P10). New doc ≤120 lines/≤1,100 words; MIGRATE count 20 → 21; kit-doctor doc list +1; auditor + README marker sets gain `OPTIONS:`, `COUNTEREXAMPLE TRIED:`, `RE1:`–`RE4:`; one topic skill `/kit-reasoning`. Known cost: CODE.md's word-count overage (tracked in STATE.md) grows by one item — the split decision gets more urgent.
+
 ## Open Questions
 
 1. ~~Companion packaging~~ **RESOLVED (v1.1.1)**: same repo — `hooks/`, `scripts/`, `evals/` ship in-repo as the opt-in companion layer; the installable kit stays docs-only.
@@ -297,6 +317,7 @@ Unchanged for the kit itself: git repo copy per README (now cross-platform). Com
 7. 🔶 **Follow-ons**: `kit doctor` shipped (v1.3) ✅; per-model threshold overlays still pending — they consume item 5's numbers.
 8. ✅ **Phase C2+ (Addendum 4, v1.2/v1.3)**: 17 skills total — 8 workflow commands (incl. /kit-doctor, /kit-rearm) + 9 topic packs.
 9. ⏳ **Evals CI** (Distribution Plan): GitHub Actions run of the harness on kit changes — deferred until harder tasks + budget policy exist.
+10. **Addendum 5 (kit v1.4)**: REASONING.md (RE1–RE4) + PLAN P10 + C22 routing + `/kit-reasoning` + algorithmic eval pack; then measure the scaffold effect on Haiku/Sonnet (with/without kit on the algo tasks).
 
 ## The Assignment
 

@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.1 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
+<!-- guardrails-kit: v1.4 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
 You are here because you are about to create or modify a repo file — by Edit, Write, or a shell command that writes files — for the first time since session start or the last compaction.
 
 Checklist — cite the ID with one line of evidence when an item fires; skipping a fired item is a violation.
@@ -19,6 +19,7 @@ While editing:
 - C18. Editing or creating a UI file (.tsx/.jsx/.vue/.svelte, templates, .css/.scss, styled components)? Read docs/guardrails/FRONTEND.md.
 - C19. Writing SQL/ORM mutations, a migration, or a bulk-update script? Read docs/guardrails/DATA.md.
 - C20. Creating or modifying a test file? Read docs/guardrails/TEST.md.
+- C22. Writing recursion, a state machine, a parser, or index/offset arithmetic? Read docs/guardrails/REASONING.md.
 - C21. Major-version bump of any dependency: read its changelog/migration guide and paste `BREAKING CHECKED: <item> -> <grep/hit in this repo>` (extends C6).
 - C8. Duplicated-then-adapted block: list every token that had to change; Grep the file with -n for each OLD token; confirm in one line per token that every hit's line number lies OUTSIDE the new block's range. Symmetric term appears 3+ times per line? Extract a helper instead of pasting.
 - C9. Edit with replace_all=true: first Grep the old_string in that file and paste every occurrence; confirm each should change. Never replace_all a string that is not a complete identifier or that can occur inside another word -> instead: one Edit per occurrence with enough surrounding context to be unique.
