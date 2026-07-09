@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.1.1 -->
-# Guardrails Kit v1.1
+<!-- guardrails-kit: v1.2 -->
+# Guardrails Kit v1.2
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -59,6 +59,10 @@ Copy-Item <kit>/CLAUDE.md CLAUDE.md
 New-Item -ItemType Directory -Force docs/guardrails | Out-Null
 Copy-Item <kit>/docs/guardrails/*.md docs/guardrails/
 ```
+
+Optional slash-skill layer (`/kit-verify`, `/kit-sql`, …): copy `<kit>/.claude/skills/kit-*` into
+your project's `.claude/skills/` — each is a pointer bundle into the docs above, giving a typeable
+command plus harness auto-load on topic match.
 
 Then fill the `## Project` section of CLAUDE.md with your run/test commands and hard project
 constraints (cap: 40 lines — everything conditional goes in `docs/guardrails/PROJECT.md` with a
@@ -129,6 +133,12 @@ files must never be paraphrased. When editing kit content itself, follow
 
 ## Upgrade notes
 
+- v1.2 — slash-skill layer (roadmap Addendum 4 / Phase C2+): 15 skills under
+  `.claude/skills/kit-*/` — 6 workflow commands (kit-verify, kit-audit, kit-state,
+  kit-migrate, kit-plan, kit-debug) + 9 topic packs (kit-sql, kit-nosql, kit-go,
+  kit-angular, kit-vue, kit-tailwind, kit-security, kit-performance, kit-testing),
+  all F7 pointer bundles; install lines in README + MIGRATE M6e. kit-doctor/kit-rearm
+  follow with their Phase C artifacts. Kit docs remain v1.1.
 - v1.1.1 — enforcement companion (roadmap Phase B1–B3, no kit-doc rule changes): `hooks/`
   (guard.py, track.py, stop_verify.py + settings snippet, README, 20-case test suite),
   `scripts/allow-push`, `scripts/audit-transcript.py` compliance auditor. Opt-in; kit docs

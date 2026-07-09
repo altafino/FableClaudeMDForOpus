@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.1 | This file is executed as a procedure. Do not improvise, reorder, or batch PHASES; batching independent tool calls inside one numbered step is fine. -->
+<!-- guardrails-kit: v1.2 | This file is executed as a procedure. Do not improvise, reorder, or batch PHASES; batching independent tool calls inside one numbered step is fine. -->
 # MIGRATE.md — install the guardrails kit into an existing project
 
 GOVERNING PRINCIPLE — MIGRATION IS TRANSPORT, NOT AUTHORSHIP.
@@ -74,6 +74,7 @@ M6b. Write the new CLAUDE.md (Write is correct here and supersedes the kit iron 
      Never insert, delete, or reword any line inside the kit markers — project content lives only in zone 2 (this is what makes future kit upgrades a wholesale block swap).
 M6c. Everything conditional (debug lore, style detail, architecture notes, environment quirks) goes VERBATIM into docs/guardrails/PROJECT.md under situation-phrased `##` anchors; UNSORTED lines go verbatim into docs/guardrails/PROJECT-NOTES.md. For EVERY `##` anchor created in PROJECT.md, add one zone-2 pointer line `<observable trigger> -> Read docs/guardrails/PROJECT.md#<anchor>` to CLAUDE.md — a PROJECT.md section with no zone-2 pointer is unreachable and counts as DROPPED, which requires user approval. PROJECT.md, PROJECT-NOTES.md, and MIGRATION-LOG.md are project-authored archives exempt from _FORMAT.md doc-shape rules — never reformat their transported content.
 M6d. Fresh install only: `cp "<KIT>/CLAUDE.md" CLAUDE.md` | `Copy-Item "<KIT>/CLAUDE.md" CLAUDE.md`, then fill `## Project` (zone 2 only) with the project's run/test commands if known.
+M6e. Optional slash-skill layer: ask the user; on yes, copy `<KIT>/.claude/skills/kit-*` directories into `<PROJECT>/.claude/skills/` by file copy (they are F7 pointer bundles — never retype). Precheck name collisions with existing skills the same way as M6a(1); log the outcome.
 
 ## Phase 7 — carried-fact revalidation (stale facts get laundered into authority — check them)
 M7. For every carried COMMAND: verify the script/target exists (package.json scripts, Makefile targets, `[ -e <path> ]` | `Test-Path <path>`) — do not execute anything with side effects. For every carried PATH: existence-check the same way. For every version claim: check the manifest/lockfile. `@` imports stay inside CLAUDE.md: the containing file's directory is unchanged, so keep the path byte-identical and existence-check the target. Plain relative paths in prose MOVED to docs/guardrails/*: rewrite repo-root-relative and record in that row's note column `path-rewritten: <old> -> <new>` (M8 item 2 checks such rows against the rewritten text).
