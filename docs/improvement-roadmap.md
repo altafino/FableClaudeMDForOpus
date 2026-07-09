@@ -19,8 +19,9 @@ Mode: Builder
 | N=5 run | 3 hard trap tasks × 2 conditions × 5 on Opus 4.8 (#20260709-041605, $17.99): 30/30 task-pass (**ceiling persists even on trap tasks** — Opus didn't fall for the symptom-patch or test-weakening baits without the kit either), fire-rate 71–80% vs 0%, kit engaged 12/15, unverified claims 11/11 → 10/21, cost +67% ($0.75 vs $0.45) — published in README |
 | delta run | 2 correctness-delta tasks (5-part multipart, append-only invariant) × 2 × 5 on Opus (#20260709-063952, $14.60): 20/20 task-pass — Opus ceiling holds even at 5 coupled deliverables; engaged 7/10, unverified 7/12 vs 7/7, cost +92% |
 | Haiku run | full 10-task matrix × 2 × 5 on Haiku 4.5 (#20260709-063954, $7.42): **first correctness delta** — without-kit 49/50 (rename-sweep 4/5, the string-literal miss) vs with-kit 50/50; **kit engagement only 6/50 (12%)** vs Opus 77% — evidence for per-model overlays; unverified claims 50/50 → 38/49; cost +14% — published in README model-compat matrix |
+| Sonnet run | full 10-task matrix × 2 × 5 on Sonnet 5 (#20260709-063953, $46.26): 100/100 task-pass (ceiling, like Opus); engagement 27/50 (54%) — completing the monotone tier gradient 77% → 54% → 12%; unverified claims 24/25 → 33/56; cost +107% — matrix row published |
 
-**Still open:** Sonnet 5 run completion (in progress; Opus 60/60 and Haiku 100 sessions published — README model-compat matrix started, satisfying A4's first entries); an Opus-failing task design remains elusive (60/60 pass incl. 5-part and invariant tasks — Opus correctness ceiling appears genuine at this task size); per-model overlays now evidence-backed (Haiku engagement 12% vs Opus 77% — overlay work should target engagement, e.g. stricter/earlier routing phrasing, not just thresholds); live-session validation of the deny/stop hooks; the field test on a real external project; evals CI; Open Questions 2, 3, 6.
+**Still open:** the algo-pack scaffold-effect runs (Haiku/Sonnet on algo-parser/algo-window, Next Step 10); an Opus-failing task design remains elusive (60/60 pass incl. 5-part and invariant tasks — Opus correctness ceiling appears genuine at this task size); per-model overlays now evidence-backed (Haiku engagement 12% vs Opus 77% — overlay work should target engagement, e.g. stricter/earlier routing phrasing, not just thresholds); live-session validation of the deny/stop hooks; the field test on a real external project; evals CI; Open Questions 2, 3, 6.
 
 ## Problem Statement
 
@@ -263,6 +264,26 @@ CLAUDE.md core +0. Skills ship as `.claude/skills/kit-*/SKILL.md` in the kit rep
 
 > Implemented (v1.2; `/kit-doctor` + `/kit-rearm` followed in v1.3) — see "Implementation status" at the top.
 
+## Addendum 5 (2026-07-09): Reasoning scaffolds — extracting problem-solving, not adding it
+
+User-approved. Honest boundary first: the kit cannot make a model smarter (80 Opus sessions confirmed the correctness ceiling empirically), and a taste/judgment rulebook would violate F1. The opening: procedures that reliably **extract more of the capability already present** — the prompting techniques known to work (plan-before-code, worked examples, self-checking) converted into event-triggered, artifact-producing rules. Target tier: mid/small models (Haiku showed the first correctness delta; expect ~zero pass-rate gain on frontier tiers).
+
+### New doc: `docs/guardrails/REASONING.md` (kit v1.4)
+
+Routed via CODE.md C22: *"Writing recursion, a state machine, a parser, or index/offset arithmetic? Read docs/guardrails/REASONING.md."* Rules RE1–RE4: worked-example trace as a comment BEFORE the code (code must match the trace — falsifiable, generalizes TRAPS' date/bounds trace rows); a post-code counterexample hunt with the `COUNTEREXAMPLE TRIED:` artifact; an invariant comment for anything stateful; explain-then-code (2–3 plain sentences before the first edit — can't state it plainly = don't understand it yet).
+
+### PLAN.md P10: candidate enumeration
+
+A design decision with 2+ plausible shapes (data structure, algorithm, module boundary, dependency) requires an `OPTIONS:` artifact — 2–3 candidates with one-line tradeoffs and a one-line pick reason — before implementing. The first idea is a candidate, never the default.
+
+### Algorithmic eval pack (correctness-delta bait for mid tiers)
+
+Two tasks where off-by-ones and edge cases are the point: a quoted-CSV field parser (embedded commas, `""` escapes, empty fields) and an overlapping-window chunker (partial tails, overlap≥size errors, empty input). These pair with the Haiku/Sonnet finding: weaker tiers CAN show pass-rate deltas; these tasks aim the measurement at exactly the failure class RE1/RE2 target.
+
+### Budget / tie-ins
+
+CLAUDE.md core +0 (routing rides on CODE.md C22 + PLAN P10). New doc ≤120 lines/≤1,100 words; MIGRATE count 20 → 21; kit-doctor doc list +1; auditor + README marker sets gain `OPTIONS:`, `COUNTEREXAMPLE TRIED:`, `RE1:`–`RE4:`; one topic skill `/kit-reasoning`. Known cost: CODE.md's word-count overage (tracked in STATE.md) grows by one item — the split decision gets more urgent.
+
 ## Open Questions
 
 1. ~~Companion packaging~~ **RESOLVED (v1.1.1)**: same repo — `hooks/`, `scripts/`, `evals/` ship in-repo as the opt-in companion layer; the installable kit stays docs-only.
@@ -297,6 +318,7 @@ Unchanged for the kit itself: git repo copy per README (now cross-platform). Com
 7. 🔶 **Follow-ons**: `kit doctor` shipped (v1.3) ✅; per-model threshold overlays still pending — they consume item 5's numbers.
 8. ✅ **Phase C2+ (Addendum 4, v1.2/v1.3)**: 17 skills total — 8 workflow commands (incl. /kit-doctor, /kit-rearm) + 9 topic packs.
 9. ⏳ **Evals CI** (Distribution Plan): GitHub Actions run of the harness on kit changes — deferred until harder tasks + budget policy exist.
+10. **Addendum 5 (kit v1.4)**: REASONING.md (RE1–RE4) + PLAN P10 + C22 routing + `/kit-reasoning` + algorithmic eval pack; then measure the scaffold effect on Haiku/Sonnet (with/without kit on the algo tasks).
 
 ## The Assignment
 

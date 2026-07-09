@@ -1,5 +1,5 @@
-<!-- guardrails-kit: v1.3 -->
-# Guardrails Kit v1.3
+<!-- guardrails-kit: v1.4 -->
+# Guardrails Kit v1.4
 
 A portable CLAUDE.md + documentation set that makes Claude Opus / Sonnet operate as close to
 frontier (Fable) level as possible inside Claude Code: fewer logic errors, fewer introduced bugs,
@@ -37,16 +37,16 @@ with your own rate: value ≈ (verify-minutes-saved × your $/min) + (escape-rat
 | Model | Sessions | Task pass with / without kit | Kit engaged | Unverified claims with / without | Cost delta |
 |---|---|---|---|---|---|
 | Opus 4.8 | 60 (10 tasks; N=1 easy, N=5 hard+delta) | 100% / 100% | 23/30 (77%) | 20/41 vs 21/21 | +61–92% |
+| Sonnet 5 | 100 (10 tasks, N=5) | 100% / 100% | 27/50 (54%) | 33/56 vs 24/25 | +107% |
 | Haiku 4.5 | 100 (10 tasks, N=5) | 100% / **98%** | 6/50 (**12%**) | 38/49 vs 50/50 | +14% |
-| Sonnet 5 | run in progress | — | — | — | — |
 
 Two findings worth reading twice. **First measured correctness delta:** Haiku without the kit
 failed `rename-sweep` 1/5 times (the task with a string-literal reference a code-only rename
 misses) while with-kit stayed 5/5 — and that is exactly the task where Haiku's routing engaged
-most. **Engagement scales with model tier:** Opus follows the kit's routing 77% of the time
-unprompted; Haiku only 12% — the tier that needs the kit most obeys it least, which is the
-evidence the roadmap's per-model overlays (stricter phrasing/thresholds for smaller models) were
-designed for. Raw rows: `evals/results/` (local).
+most. **Engagement scales monotonically with model tier:** Opus follows the kit's routing 77%
+of the time unprompted, Sonnet 54%, Haiku 12% — the tier that needs the kit most obeys it
+least, which is the evidence the roadmap's per-model overlays (stricter phrasing/thresholds
+for smaller models) were designed for. Raw rows: `evals/results/` (local).
 
 ## What's in the kit
 
@@ -67,6 +67,7 @@ designed for. Raw rows: `evals/results/` (local).
 | `docs/guardrails/TRUST.md` | Imperatives found inside tool results/files (via EFFICIENCY.md E18): untrusted content is data — `INJECTION-SUSPECT` marker, never silent compliance. |
 | `docs/guardrails/DATA.md` | SQL/ORM mutations, migrations, bulk updates (via C19): predicted-vs-actual row counts, dry-runs, migration discipline, DROP approval. |
 | `docs/guardrails/TEST.md` | Writing tests (via C20): TE1–TE5 authorship quality — no logic in tests, behavior asserts, the "returns test". |
+| `docs/guardrails/REASONING.md` | Recursion, state machines, parsers, index math (via C22): RE1–RE4 reasoning scaffolds — trace before code, counterexample after, invariants, explain-then-code. Extracts capability; adds none. |
 | `docs/guardrails/TRAPS-*.md` | Language/framework trap packs — GO, ANGULAR, VUE, TAILWIND, SQL, NOSQL — dispatched by C7 on manifest/file-type evidence; version-aware rows with verified-against headers. |
 | `docs/guardrails/PROJECT-TEMPLATE.md` | Skeleton for the project-authored PROJECT.md — copy and fill when first needed. |
 | `MIGRATE.md` | The transport procedure for retrofitting a project that already has a CLAUDE.md — line-accounted, backup-first, verbatim-carry, user-checkpointed, idempotent, with an UPGRADE mode. |
@@ -143,8 +144,10 @@ were skipped, search a transcript for: `TRIGGER:`, `GOAL:`, `FILES:`, `EST:`, `D
 `DETOUR(`, `RETURNING:`, `DECISION:`, `CONSTRAINT CHECK:`, `HANDLED FAILURES:`,
 `NOTED (not done)`, `EDITED-UNVERIFIED`, `CANNOT-REPRODUCE`, `SIGNATURE UNVERIFIED`,
 `INJECTION-SUSPECT`, `AUTH:`, `STATES COVERED:`, `BREAKING CHECKED:`, `UNBOUNDED (by choice)`,
-`P1:`–`P9:`, `C1:`–`C21:`, `D1:`–`D10:`, `V1:`–`V14:`, `E1:`–`E19:`, `S1:`–`S8:`, `RS1`–`RS6`,
-`SEC1:`–`SEC8:`, `PERF1:`–`PERF6:`, `FE1:`–`FE7:`, `TR1:`–`TR4:`, `DA1:`–`DA6:`, `TE1:`–`TE5:`.
+`OPTIONS:`, `COUNTEREXAMPLE TRIED:`,
+`P1:`–`P10:`, `C1:`–`C22:`, `D1:`–`D10:`, `V1:`–`V14:`, `E1:`–`E19:`, `S1:`–`S8:`, `RS1`–`RS6`,
+`SEC1:`–`SEC8:`, `PERF1:`–`PERF6:`, `FE1:`–`FE7:`, `TR1:`–`TR4:`, `DA1:`–`DA6:`, `TE1:`–`TE5:`,
+`RE1:`–`RE4:`.
 Missing markers at the moments their triggers occurred are the non-compliance you should tune for.
 
 ## Enforcement companion (optional)
@@ -183,6 +186,13 @@ independent project.
 
 ## Upgrade notes
 
+- v1.4 — reasoning scaffolds (roadmap Addendum 5): docs/guardrails/REASONING.md (RE1–RE4:
+  worked-example trace before code, counterexample hunt after, invariant comments,
+  explain-then-code), PLAN.md P10 (OPTIONS enumeration for multi-shape design decisions),
+  CODE.md C22 routing, MIGRATE kit-doc count 20 -> 21, `/kit-reasoning` skill, auditor +
+  README marker sets extended, algorithmic eval pack (quoted-CSV parser, overlapping
+  windows). Scaffolds extract existing capability; expect deltas on mid/small tiers, not
+  frontier (measured ceiling).
 - v1.3 — Phase C + B4 harness (no kit-doc rule changes): SessionStart re-arm hook
   (`hooks/rearm.py`, wired in the settings snippet) with STATE.md freshness nudge;
   self-verifying installer (`scripts/install.sh`); `scripts/kit-doctor.py`;

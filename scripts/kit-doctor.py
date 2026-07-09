@@ -17,7 +17,7 @@ import time
 
 KIT_DOCS = [
     "_FORMAT", "PLAN", "CODE", "DEBUG", "VERIFY", "EFFICIENCY", "SESSION", "TRAPS",
-    "SECURITY", "PERFORMANCE", "FRONTEND", "TRUST", "DATA", "TEST",
+    "SECURITY", "PERFORMANCE", "FRONTEND", "TRUST", "DATA", "TEST", "REASONING",
     "TRAPS-GO", "TRAPS-ANGULAR", "TRAPS-VUE", "TRAPS-TAILWIND", "TRAPS-SQL", "TRAPS-NOSQL",
 ]
 S2_HEADERS = ["## Goal", "## Now", "## Next", "## Constraints", "## Decisions",

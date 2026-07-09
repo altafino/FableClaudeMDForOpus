@@ -1,4 +1,4 @@
-<!-- guardrails-kit: v1.0 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
+<!-- guardrails-kit: v1.4 | Editing this file? Read docs/guardrails/_FORMAT.md first. Never paraphrase kit text. -->
 You are here because you realized — at start or mid-task — the task needs >2 file edits or edits in >1 top-level directory, you are about to Edit a 3rd file with no TASK block posted, or no other routing row matched.
 
 Walk items in order, running the tool calls each item needs; every `P<n>: <content, or N/A — reason>` line must appear in your transcript BEFORE your first Edit — they need not share one message. P4 is the sole multi-line item.
@@ -18,6 +18,7 @@ Walk items in order, running the tool calls each item needs; every `P<n>: <conte
 - P7. Ambiguity: ask the user ONLY when BOTH hold: (a) two reasonable readings produce materially different diffs (data model, user-visible behavior, anything irreversible) AND (b) one search of code/tests/docs cannot disambiguate. Otherwise write `ASSUMPTION: <choice> because <evidence>` and proceed. Never ask a question the repo answers.
 - P8. Mechanism check: the request names BOTH a fix ("add X") and a symptom ("because Y keeps happening")? Confirm X actually intercepts Y (read the error/log/issue) before building. If it does not, report the finding and the alternative in <=5 lines BEFORE implementing. No symptom named? Implement as asked — do not invent a deeper problem.
 - P9. docs/STATE.md does not exist? Create it now per docs/guardrails/SESSION.md S2 and fill Goal/Now/Next.
+- P10. A design decision has 2+ plausible shapes (data structure, algorithm, module boundary, dependency)? Write `OPTIONS: (a) <one line> (b) <one line> -> picked <x> because <one line>` before implementing — the first idea is a candidate, never the default.
 
 --- reference ---
 

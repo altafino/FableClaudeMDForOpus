@@ -46,6 +46,9 @@ MARKER_FAMILIES = [
     ("BREAKING CHECKED:", r"BREAKING CHECKED:"),
     ("SEC rows", r"\bSEC\d:"),
     ("PERF rows", r"\bPERF\d:"),
+    ("OPTIONS:", r"OPTIONS:"),
+    ("COUNTEREXAMPLE TRIED:", r"COUNTEREXAMPLE TRIED:"),
+    ("RE rows", r"\bRE\d:"),
 ]
 
 
