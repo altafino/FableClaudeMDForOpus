@@ -48,6 +48,15 @@ of the time unprompted, Sonnet 54%, Haiku 12% — the tier that needs the kit mo
 least, which is the evidence the roadmap's per-model overlays (stricter phrasing/thresholds
 for smaller models) were designed for. Raw rows: `evals/results/` (local).
 
+## Origins & thanks
+
+This project began as a fork of
+[TheColliny/FableClaudeMDForOpus](https://github.com/TheColliny/FableClaudeMDForOpus) — thanks to
+TheColliny for the original Guardrails Kit v1.0: the research, the core concept, and the initial
+rule set. As the original appears to be a one-time release while this fork has grown well beyond
+it (coverage docs, enforcement hooks, evals, slash skills — v1.1+), it continues here as an
+independent project.
+
 ## What's in the kit
 
 | File | Role |
@@ -198,15 +207,6 @@ Upgrades are wholesale block/file swaps — see UPGRADE mode (U0–U4) at the bo
 which is exactly why project content must never be interleaved into kit blocks, and why kit
 files must never be paraphrased. When editing kit content itself, follow
 `docs/guardrails/_FORMAT.md`.
-
-## Origins & thanks
-
-This project began as a fork of
-[TheColliny/FableClaudeMDForOpus](https://github.com/TheColliny/FableClaudeMDForOpus) — thanks to
-TheColliny for the original Guardrails Kit v1.0: the research, the core concept, and the initial
-rule set. As the original appears to be a one-time release while this fork has grown well beyond
-it (coverage docs, enforcement hooks, evals, slash skills — v1.1+), it continues here as an
-independent project.
 
 ## Upgrade notes
 
