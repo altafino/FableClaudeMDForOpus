@@ -80,23 +80,31 @@ roadmap), `docs/research-digest.md` (the 155-finding failure-mode research behin
 
 ## Install — fresh project (no existing CLAUDE.md)
 
+Clone the kit once, then point `KIT` at it (every command below is copy-pasteable):
+
+```bash
+git clone https://github.com/altafino/FableClaudeMDForOpus ~/guardrails-kit
+KIT=~/guardrails-kit
+```
+
 From the project root — POSIX (Linux/macOS):
 
 ```bash
-cp <kit>/CLAUDE.md CLAUDE.md
+cp "$KIT"/CLAUDE.md CLAUDE.md
 mkdir -p docs/guardrails
-cp <kit>/docs/guardrails/*.md docs/guardrails/
+cp "$KIT"/docs/guardrails/*.md docs/guardrails/
 ```
 
 or PowerShell (Windows):
 
 ```powershell
-Copy-Item <kit>/CLAUDE.md CLAUDE.md
+$KIT = "$HOME\guardrails-kit"
+Copy-Item "$KIT/CLAUDE.md" CLAUDE.md
 New-Item -ItemType Directory -Force docs/guardrails | Out-Null
-Copy-Item <kit>/docs/guardrails/*.md docs/guardrails/
+Copy-Item "$KIT/docs/guardrails/*.md" docs/guardrails/
 ```
 
-Optional slash-skill layer (`/kit-verify`, `/kit-sql`, …): copy `<kit>/.claude/skills/kit-*` into
+Optional slash-skill layer (`/kit-verify`, `/kit-sql`, …): copy `$KIT/.claude/skills/kit-*` into
 your project's `.claude/skills/` — each is a pointer bundle into the docs above, giving a typeable
 command plus harness auto-load on topic match.
 
@@ -106,11 +114,11 @@ pointer line in `## Project`). Never edit inside the `BEGIN/END KIT` markers.
 
 ## Install — project with an existing CLAUDE.md
 
-One command from your project root:
+One command from your project root (`KIT` = your kit clone, as above):
 
 ```bash
-<kit>/scripts/migrate.sh <kit>            # mechanical prep: probe, snapshot, collision scan
-<kit>/scripts/migrate-auto.sh --kit <kit> # same + launches the Claude session for you
+"$KIT"/scripts/migrate.sh "$KIT"              # mechanical prep: probe, snapshot, collision scan
+"$KIT"/scripts/migrate-auto.sh --kit "$KIT"   # same + launches the Claude session for you
 ```
 
 The script does everything judgment-free (idempotency probe, sha256 snapshot, collision
@@ -118,13 +126,13 @@ pre-scan, kit manifest — writing NO kit docs before your approval), then hands
 `/kit-migrate` for the semantic phases; migration always stops at the M5 checkpoint for
 your explicit approval, and the post-approval copies run hash-verified via
 `migrate.sh apply`. Changed your mind at any point — even after completion?
-`migrate.sh <kit> rollback` restores CLAUDE.md from the snapshot and removes
+`"$KIT"/scripts/migrate.sh "$KIT" rollback` restores CLAUDE.md from the snapshot and removes
 exactly what the migration created (pre-existing files always survive), showing
 the full plan and asking before touching anything. Test suite: `scripts/test_migrate.sh`.
 
 No-script fallback — tell the model (Opus is fine — the procedure is designed for it):
 
-> Read MIGRATE.md in <kit path> and execute it exactly, phase by phase.
+> Read MIGRATE.md in ~/guardrails-kit and execute it exactly, phase by phase.
 
 MIGRATE.md is built so nothing is lost: snapshot first, every original line gets a logged
 disposition, kit files are installed by per-file copy (never retyped), rule conflicts are surfaced
@@ -168,7 +176,7 @@ Missing markers at the moments their triggers occurred are the non-compliance yo
 
 ## Enforcement companion (optional)
 
-`scripts/install.sh <kit> [target] [--skills]` is the self-verifying fresh installer (hash-checked);
+`scripts/install.sh "$KIT" [target] [--skills]` is the self-verifying fresh installer (hash-checked);
 `python3 scripts/kit-doctor.py` health-checks any installed project (markers, doc set, STATE.md
 shape, drift); `hooks/rearm.py` (SessionStart) deterministically re-injects the post-compaction
 recovery instruction and nudges on stale/missing STATE.md; `evals/` holds the with/without-kit
